@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles/';
+import { TypeBackground, TypeText } from '@mui/material/styles/createPalette';
 
 declare module '@mui/material/styles' {
   interface Theme {
@@ -18,14 +19,26 @@ declare module '@mui/material/styles' {
   }
 }
 
+declare module '@mui/material/styles' {
+  interface TypeBackground {
+    white?: string;
+  }
+
+  interface TypeText {
+    black: string;
+    white: string;
+  }
+}
+
 const defaultTheme = createTheme({
   palette: {
     background: {
       default: '#3F8AE0',
+      white: '#ffffff',
     },
     text: {
-      primary: '#1f1f1f',
-      secondary: '#ffffff',
+      black: '#1f1f1f',
+      white: '#ffffff',
     },
   },
   typography: {

@@ -7,14 +7,15 @@ const StyledHeader = styled(AppBar)(({ theme }) => ({
   position: 'static',
 }));
 
-const StyledToolbar = styled(Toolbar)(({ theme }) => ({
+const StyledToolbar = styled(Toolbar)({
   justifyContent: 'space-between',
-}));
+});
 
 const StyledLink = styled(Link)(({ theme }) => ({
   fontSize: theme.typography.h4.fontSize,
   textDecoration: 'none',
-  color: theme.palette.text.secondary,
+  color: theme.palette.text.white,
+  flexShrink: 0,
 }));
 
 export { StyledHeader, StyledToolbar, StyledLink };
