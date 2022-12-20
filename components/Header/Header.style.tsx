@@ -1,10 +1,14 @@
 import Link from 'next/link';
-import { AppBar } from '@mui/material';
+import { AppBar, Toolbar } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 const StyledHeader = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
   position: 'static',
+}));
+
+const StyledToolbar = styled(Toolbar)(({ theme }) => ({
+  justifyContent: 'space-between',
 }));
 
 const StyledLink = styled(Link)(({ theme }) => ({
@@ -13,4 +17,4 @@ const StyledLink = styled(Link)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export { StyledHeader, StyledLink };
+export { StyledHeader, StyledToolbar, StyledLink };

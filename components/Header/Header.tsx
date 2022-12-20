@@ -1,13 +1,11 @@
-import { Toolbar } from '@mui/material';
-
-import { StyledHeader, StyledLink } from './Header.style';
+import { StyledHeader, StyledToolbar, StyledLink } from './Header.style';
 
 function Header() {
   return (
     <StyledHeader>
-      <Toolbar>
+      <StyledToolbar>
         <StyledLink href="/">Movie App</StyledLink>
-      </Toolbar>
+      </StyledToolbar>
     </StyledHeader>
   );
 }
