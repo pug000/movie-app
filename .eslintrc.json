@@ -33,6 +33,10 @@
     "no-param-reassign": [
       "error",
       { "props": true, "ignorePropertyModificationsFor": ["state", "ctx"] }
+    ],
+    "@typescript-eslint/no-var-requires": [
+      "error",
+      { "ignorePropertyModificationsFor": ["next/jest"] }
     ]
   },
   "settings": {
