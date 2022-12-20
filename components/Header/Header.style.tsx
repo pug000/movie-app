@@ -7,9 +7,12 @@ const StyledHeader = styled(AppBar)(({ theme }) => ({
   position: 'static',
 }));
 
-const StyledToolbar = styled(Toolbar)({
+const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   justifyContent: 'space-between',
-});
+  maxWidth: 1440,
+  width: '100%',
+  margin: theme.spacing(0, 'auto'),
+}));
 
 const StyledLink = styled(Link)(({ theme }) => ({
   fontSize: theme.typography.h4.fontSize,
