@@ -1,12 +1,12 @@
 import { styled, alpha } from '@mui/material/styles';
-import { IconButton, InputBase } from '@mui/material';
+import { InputBase } from '@mui/material';
 
 const InputWrapper = styled('div')(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   position: 'relative',
   marginRight: theme.spacing(2),
-  marginLeft: theme.spacing(2),
+  marginLeft: theme.spacing(3),
   width: '100%',
   transition: theme.transitions.create('background-color'),
 
@@ -17,6 +17,10 @@ const InputWrapper = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(1),
     width: 'auto',
+  },
+
+  [theme.breakpoints.down('sm')]: {
+    marginRight: 0,
   },
 }));
 

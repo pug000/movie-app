@@ -15,7 +15,8 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 }));
 
 const StyledLink = styled(Link)(({ theme }) => ({
-  fontSize: theme.typography.h4.fontSize,
+  fontSize: theme.typography.h3.fontSize,
+  fontFamily: theme.fonts.text,
   textDecoration: 'none',
   color: theme.palette.text.white,
   flexShrink: 0,
