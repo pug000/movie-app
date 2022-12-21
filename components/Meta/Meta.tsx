@@ -4,7 +4,7 @@ interface HeadTitleProps {
   title: string;
 }
 
-function HeadTitle({ title }: HeadTitleProps) {
+function Meta({ title }: HeadTitleProps) {
   return (
     <Head>
       <title>{title}</title>
@@ -12,4 +12,4 @@ function HeadTitle({ title }: HeadTitleProps) {
   );
 }
 
-export default HeadTitle;
+export default Meta;
