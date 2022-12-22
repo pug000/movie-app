@@ -4,18 +4,17 @@ import { ThemeProvider } from '@mui/material/styles';
 
 import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundary';
 
-import store from 'redux/store';
+import store, { wrapper } from 'redux/store';
 import defaultTheme from 'styles/theme';
 import GlobalStyle from 'styles/Global';
 
-function App({ Component, pageProps }: AppProps) {
+function App({ Component, ...rest }: AppProps) {
+  const { store, props } = wrapper.useWrappedStore(rest);
   return (
     <Provider store={store}>
       <ThemeProvider theme={defaultTheme}>
-        <ErrorBoundary>
-          <GlobalStyle />
-          <Component {...pageProps} />
-        </ErrorBoundary>
+        <GlobalStyle />
+        <Component {...props.pageProps} />
       </ThemeProvider>
     </Provider>
   );
