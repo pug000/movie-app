@@ -7,11 +7,13 @@ import defaultTheme from 'styles/theme';
 
 import Home from 'pages/index';
 
+import mockedMovies from './utils/constants';
+
 const setUp = () =>
   render(
     <Provider store={store}>
       <ThemeProvider theme={defaultTheme}>
-        <Home moviePosters={[]} />
+        <Home moviePosters={mockedMovies} />
       </ThemeProvider>
     </Provider>
   );
@@ -24,5 +26,6 @@ describe('Home page', () => {
   test('should render Home page', () => {
     expect(screen.getByRole('heading', { name: /movie app/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /enter/i })).toBeInTheDocument();
+    expect(screen.getAllByRole('img')).toHaveLength(2);
   });
 });
