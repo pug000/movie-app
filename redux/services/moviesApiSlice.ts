@@ -3,14 +3,16 @@ import { FetchBaseQueryError, FetchBaseQueryMeta } from '@reduxjs/toolkit/query'
 
 import { Endpoints, Methods } from 'ts/enums';
 import { DataResult, ResponseResult } from 'ts/interfaces';
+import { splitArray } from 'utils/functions';
 
 import apiSlice from './apiSlice';
 
 const moviesApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getMoviePosters: builder.query<DataResult[], void | null>({
+    getMoviePosters: builder.query<DataResult[][], void | null>({
       queryFn: async (_arg: void, _api, _extraOptions, baseQuery) => {
-        const pages = [1, 2, 3, 4];
+        const size = 10;
+        const pages = [1, 2, 3];
         const result = await Promise.all(
           pages.map(
             async (page) =>
@@ -29,11 +31,11 @@ const moviesApiSlice = apiSlice.injectEndpoints({
           )
         );
         const error = result.filter((response) => response.error);
-        const posters = result.flatMap((res) => res.data?.results);
+        const movies = result.flatMap((response) => response.data?.results);
 
         return error.length
           ? { error: error[0] as FetchBaseQueryError }
-          : { data: posters as DataResult[] };
+          : { data: splitArray(movies, size) as DataResult[][] };
       },
     }),
   }),
@@ -43,4 +45,7 @@ export const {
   useGetMoviePostersQuery,
   util: { getRunningQueriesThunk },
 } = moviesApiSlice;
-export const { getMoviePosters } = moviesApiSlice.endpoints;
+
+const { getMoviePosters } = moviesApiSlice.endpoints;
+
+export { getMoviePosters };
