@@ -8,6 +8,8 @@ const apiSlice = createApi({
     if (action.type === HYDRATE) {
       return action.payload[reducerPath];
     }
+
+    return undefined;
   },
   tagTypes: [],
   endpoints: () => ({}),

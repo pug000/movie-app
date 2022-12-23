@@ -1,5 +1,4 @@
 import { createTheme } from '@mui/material/styles/';
-import { TypeBackground, TypeText } from '@mui/material/styles/createPalette';
 
 declare module '@mui/material/styles' {
   interface Theme {

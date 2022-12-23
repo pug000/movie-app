@@ -1,4 +1,3 @@
-import Stack from '@mui/material/Stack';
 import SearchIcon from '@mui/icons-material/Search';
 
 import { InputWrapper, SearchIconWrapper, StyledInput } from './SearchBar.style';

@@ -3,7 +3,7 @@ import { FetchBaseQueryError, FetchBaseQueryMeta } from '@reduxjs/toolkit/query'
 
 import { Endpoints, Methods } from 'ts/enums';
 import { DataResult, ResponseResult } from 'ts/interfaces';
-import { splitArray } from 'utils/functions';
+import splitArray from 'utils/functions';
 
 import apiSlice from './apiSlice';
 

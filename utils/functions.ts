@@ -9,4 +9,4 @@ const splitArray = <T>(array: T[], size: number): T[][] => {
   return [head, ...splitArray(tail, size)];
 };
 
-export { splitArray };
+export default splitArray;
