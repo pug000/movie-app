@@ -2,14 +2,10 @@ import { render } from '@testing-library/react';
 
 import Meta from 'components/Meta/Meta';
 
-jest.mock('next/head', () => {
-  return {
-    __esModule: true,
-    default: ({ children }: { children: React.ReactNode }) => {
-      return <>{children}</>;
-    },
-  };
-});
+jest.mock('next/head', () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => children,
+}));
 
 const mockTitle = 'test';
 

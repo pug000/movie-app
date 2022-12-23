@@ -10,7 +10,12 @@ const customJestConfig = {
   moduleNameMapper: {
     '^components/(.*)$': '<rootDir>/components/$1',
     '^pages/(.*)$': '<rootDir>/pages/$1',
+    '^redux/(.*)$': '<rootDir>/redux/$1',
+    '^styles/(.*)$': '<rootDir>/styles/$1',
+    '^ts/(.*)$': '<rootDir>/ts/$1',
+    '^utils/(.*)$': '<rootDir>/utils/$1',
   },
+  moduleDirectories: ['node_modules'],
   testEnvironment: 'jest-environment-jsdom',
 };
 

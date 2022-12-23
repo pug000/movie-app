@@ -1,4 +1,4 @@
-interface DataResult {
+interface Movie {
   poster_path: string | null;
   adult: boolean;
   overview: string;
@@ -16,9 +16,9 @@ interface DataResult {
 }
 interface ResponseResult {
   page: number;
-  results: DataResult[];
+  results: Movie[];
   total_results: number;
   total_pages: number;
 }
 
-export type { ResponseResult, DataResult };
+export type { ResponseResult, Movie };
