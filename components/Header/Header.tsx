@@ -1,6 +1,11 @@
 import SearchBar from 'components/SearchBar/SearchBar';
 
-import { StyledHeader, StyledToolbar, StyledLink } from './Header.style';
+import {
+  StyledHeader,
+  StyledToolbar,
+  StyledLink,
+  HeaderBackground,
+} from './Header.style';
 
 function Header() {
   return (
@@ -9,6 +14,7 @@ function Header() {
         <StyledLink href="/">Movie App</StyledLink>
         <SearchBar />
       </StyledToolbar>
+      <HeaderBackground />
     </StyledHeader>
   );
 }

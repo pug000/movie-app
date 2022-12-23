@@ -11,11 +11,21 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
   }
 
+  html {
+    @media screen and (min-width: 1700px) {
+      font-size: .694444vw;
+    }
+  }
+
+  a {
+    font-size: 1.31rem;
+  }
+
   body {
-    font-family: 'Open Sans, sans-serif';
+    font-family: 'Open Sans', sans-serif;
     font-weight: 400;
     font-size: 18px;
-    background-color: ${defaultTheme.palette.background.white};
+    background-color: ${defaultTheme.palette.background.black};
     color: ${defaultTheme.palette.text.black};
   }
 `;

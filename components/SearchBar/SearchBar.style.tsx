@@ -5,18 +5,13 @@ const InputWrapper = styled('div')(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   position: 'relative',
-  marginRight: theme.spacing(2),
-  marginLeft: theme.spacing(3),
-  width: '100%',
+  marginRight: 0,
+  marginLeft: '1.5rem',
+  width: 'auto',
   transition: theme.transitions.create('background-color'),
 
   '&:hover': {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
-    width: 'auto',
   },
 
   [theme.breakpoints.down('sm')]: {
@@ -30,13 +25,17 @@ const StyledInput = styled(InputBase)(({ theme }) => ({
   paddingRight: theme.spacing(1),
 
   '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
+    padding: '0.5rem 0.5rem 0.5rem 0',
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
 
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       width: '35ch',
+    },
+
+    [theme.breakpoints.down('sm')]: {
+      fontSize: theme.typography.body2.fontSize,
     },
   },
 }));
