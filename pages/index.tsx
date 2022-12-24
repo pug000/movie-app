@@ -3,15 +3,17 @@ import { memo } from 'react';
 import { ImageLoaderProps } from 'next/image';
 import Link from 'next/link';
 
-import { getMoviePosters, getRunningQueriesThunk } from 'redux/services/moviesApiSlice';
+import {
+  getMoviePosters,
+  getRunningQueriesThunk,
+  useGetMoviePostersQuery,
+} from 'redux/services/moviesApiSlice';
 import { wrapper } from 'redux/store';
 
 import imageUrl from 'utils/constants';
 
 import Header from 'components/Header/Header';
 import Meta from 'components/Meta/Meta';
-
-import { Movie } from 'ts/interfaces';
 
 import StyledMain from 'styles/styles';
 import {
@@ -27,14 +29,12 @@ import {
   StyledButton,
 } from './Home.style';
 
-interface HomeProps {
-  moviePosters: Movie[][];
-}
-
 const loadImage = ({ src, width, quality = 75 }: ImageLoaderProps) =>
   `${src}?w=${width}px&q=${quality}`;
 
-function Home({ moviePosters }: HomeProps) {
+function Home() {
+  const { data: moviePosters } = useGetMoviePostersQuery(null);
+
   return (
     <>
       <Meta title="Home" />
@@ -43,24 +43,25 @@ function Home({ moviePosters }: HomeProps) {
         <StyledPosterSection>
           <StyledWrapper>
             <StyledContainer>
-              {moviePosters.map((chunk, index) => (
-                <StyledStack direction="row" key={index}>
-                  {chunk.map(
-                    ({ id, poster_path, backdrop_path, title, original_title }) => (
-                      <ImageWrapper key={id}>
-                        <StyledImage
-                          loader={loadImage}
-                          src={`${imageUrl}w500${poster_path ?? backdrop_path}`}
-                          priority
-                          alt={title ?? original_title}
-                          width={0}
-                          height={0}
-                        />
-                      </ImageWrapper>
-                    )
-                  )}
-                </StyledStack>
-              ))}
+              {moviePosters &&
+                moviePosters.map((chunk, index) => (
+                  <StyledStack direction="row" key={index}>
+                    {chunk.map(
+                      ({ id, poster_path, backdrop_path, title, original_title }) => (
+                        <ImageWrapper key={id}>
+                          <StyledImage
+                            loader={loadImage}
+                            src={`${imageUrl}w500${poster_path ?? backdrop_path}`}
+                            priority
+                            alt={title ?? original_title}
+                            width={0}
+                            height={0}
+                          />
+                        </ImageWrapper>
+                      )
+                    )}
+                  </StyledStack>
+                ))}
               <PosterBackground />
             </StyledContainer>
             <StyledTitleContainer>
@@ -84,13 +85,11 @@ function Home({ moviePosters }: HomeProps) {
 export default memo(Home);
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
-  const { data: moviePosters } = await store.dispatch(getMoviePosters.initiate(null));
+  store.dispatch(getMoviePosters.initiate(null));
 
   await Promise.all(store.dispatch(getRunningQueriesThunk()));
 
   return {
-    props: {
-      moviePosters: moviePosters ?? [],
-    },
+    props: {},
   };
 });
