@@ -85,9 +85,15 @@ function Home() {
 export default memo(Home);
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
-  store.dispatch(getMoviePosters.initiate(null));
+  const { isError } = await store.dispatch(getMoviePosters.initiate(null));
 
   await Promise.all(store.dispatch(getRunningQueriesThunk()));
+
+  if (isError) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {},

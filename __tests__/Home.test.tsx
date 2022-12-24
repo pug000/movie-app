@@ -1,31 +1,36 @@
 import { render, screen } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
 import { Provider } from 'react-redux';
+import fetchMock from 'jest-fetch-mock';
 
 import store from 'redux/store';
 import defaultTheme from 'styles/theme';
 
 import Home from 'pages/index';
 
-import mockedMovies from './utils/constants';
+import { mockedMovieResponse, mockedPosterPath } from './constants';
 
 const setUp = () =>
   render(
     <Provider store={store}>
       <ThemeProvider theme={defaultTheme}>
-        <Home moviePosters={mockedMovies} />
+        <Home />
       </ThemeProvider>
     </Provider>
   );
 
 describe('Home page', () => {
   beforeEach(() => {
-    setUp();
+    fetchMock.resetMocks();
   });
 
-  test('should render Home page', () => {
+  test('should render Home page', async () => {
+    fetchMock.mockResponse(JSON.stringify(mockedMovieResponse));
+    setUp();
+    const posters: HTMLImageElement[] = await screen.findAllByRole('img');
     expect(screen.getByRole('heading', { name: /movie app/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /enter/i })).toBeInTheDocument();
-    expect(screen.getAllByRole('img')).toHaveLength(2);
+    expect(posters).toHaveLength(60);
+    expect(posters[0].src).toBe(mockedPosterPath);
   });
 });

@@ -14,6 +14,7 @@ interface Movie {
   video: boolean;
   vote_average: number;
 }
+
 interface ResponseResult {
   page: number;
   results: Movie[];
@@ -21,4 +22,11 @@ interface ResponseResult {
   total_pages: number;
 }
 
-export type { ResponseResult, Movie };
+interface ResponseResultWithDates extends ResponseResult {
+  dates: {
+    minimum: string;
+    maximum: string;
+  };
+}
+
+export type { ResponseResult, ResponseResultWithDates, Movie };
