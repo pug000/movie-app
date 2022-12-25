@@ -2,8 +2,15 @@ import Link from 'next/link';
 import { AppBar, Toolbar } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-const StyledHeader = styled(AppBar)(({ theme }) => ({
-  backgroundColor: theme.palette.background.transparent,
+type HeaderProps = {
+  ishomepage?: string;
+};
+
+const StyledHeader = styled(AppBar)<HeaderProps>(({ theme, ishomepage }) => ({
+  backgroundColor:
+    ishomepage === 'true'
+      ? theme.palette.background.transparent
+      : theme.palette.background.black,
   boxShadow: 'none',
 }));
 
@@ -65,7 +72,7 @@ const HeaderBackground = styled('div')(({ theme }) => ({
   },
 
   [theme.breakpoints.down('lg')]: {
-    height: '8rem',
+    height: '12rem',
   },
 }));
 

@@ -1,3 +1,6 @@
+import { memo } from 'react';
+import { useRouter } from 'next/router';
+
 import SearchBar from 'components/SearchBar/SearchBar';
 
 import {
@@ -8,15 +11,18 @@ import {
 } from './Header.style';
 
 function Header() {
+  const { pathname } = useRouter();
+  const isHomePage = pathname === '/';
+
   return (
-    <StyledHeader>
+    <StyledHeader ishomepage={`${isHomePage}`}>
       <StyledToolbar>
         <StyledLink href="/">Movie App</StyledLink>
         <SearchBar />
       </StyledToolbar>
-      <HeaderBackground />
+      {isHomePage && <HeaderBackground />}
     </StyledHeader>
   );
 }
 
-export default Header;
+export default memo(Header);
