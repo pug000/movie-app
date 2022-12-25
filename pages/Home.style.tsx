@@ -23,7 +23,7 @@ const StyledContainer = styled('div')({
 const StyledStack = styled(Stack)({
   marginBottom: '0.625rem',
 
-  '&:nth-child(odd)': {
+  '&:nth-of-type(odd)': {
     transform: 'translate3d(calc(20.75rem / 2), 0, 0)',
   },
 });
