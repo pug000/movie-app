@@ -1,3 +1,5 @@
+import { Methods } from 'ts/enums';
+
 const splitArray = <T>(array: T[], size: number): T[][] => {
   if (!array.length) {
     return [];
@@ -9,4 +11,17 @@ const splitArray = <T>(array: T[], size: number): T[][] => {
   return [head, ...splitArray(tail, size)];
 };
 
-export default splitArray;
+const addFetchOptions = (
+  url: string,
+  params: Record<string, string | number> = {},
+  method: string = Methods.get
+) => ({
+  url,
+  method,
+  params: {
+    ...params,
+    api_key: process.env.API_KEY,
+  },
+});
+
+export { splitArray, addFetchOptions };
