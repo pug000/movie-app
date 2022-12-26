@@ -25,8 +25,14 @@ const moviesApiSlice = apiSlice.injectEndpoints({
     getPopularMovies: builder.query<ResponseResult, number | null>({
       query: (page) => addFetchOptions(`${Endpoints.popular}`, { page: page ?? 1 }),
     }),
-    getAllMovies: builder.query<(ResponseResultWithDates | ResponseResult)[], null>({
+    getAllMovies: builder.query<ResponseResultWithDates[], null>({
       queryFn: async (_arg, _api, _extraOptions, baseQuery) => {
+        const titles = [
+          'Latest movies',
+          'Top rated movies',
+          'Popular movies',
+          'Upcoming movies',
+        ];
         const endpoints = [
           `${Endpoints.latest}`,
           `${Endpoints.topRated}`,
@@ -37,7 +43,7 @@ const moviesApiSlice = apiSlice.injectEndpoints({
           endpoints.map(
             async (endpoint) =>
               (await baseQuery(addFetchOptions(endpoint))) as QueryReturnValue<
-                ResponseResultWithDates | ResponseResult,
+                ResponseResultWithDates,
                 FetchBaseQueryError,
                 FetchBaseQueryMeta
               >
@@ -46,10 +52,9 @@ const moviesApiSlice = apiSlice.injectEndpoints({
         const errors = result
           .filter(({ error }) => error)
           .map(({ error }) => error ?? []) as FetchBaseQueryError[];
-        const data = result.map((response) => response.data ?? []) as (
-          | ResponseResultWithDates
-          | ResponseResult
-        )[];
+        const data = result.map((response, index) =>
+          response.data ? { ...response.data, title: titles[index] } : []
+        ) as ResponseResultWithDates[];
 
         return errors.length ? { error: errors[0] } : { data };
       },

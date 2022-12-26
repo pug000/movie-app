@@ -23,10 +23,11 @@ interface ResponseResult {
 }
 
 interface ResponseResultWithDates extends ResponseResult {
-  dates: {
+  dates?: {
     minimum: string;
     maximum: string;
   };
+  title?: string;
 }
 
 export type { ResponseResult, ResponseResultWithDates, Movie };
