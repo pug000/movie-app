@@ -22,12 +22,23 @@ declare module '@mui/material/styles' {
   interface TypeBackground {
     white?: string;
     black?: string;
+    dark?: string;
+    orange?: string;
     transparent?: string;
   }
 
+  interface BreakpointOverrides {
+    xs: true;
+    sm: true;
+    md: true;
+    lg: true;
+    xl: true;
+    xxl: true;
+  }
+
   interface TypeText {
-    black: string;
-    white: string;
+    black?: string;
+    white?: string;
   }
 }
 
@@ -37,6 +48,8 @@ const defaultTheme = createTheme({
       default: '#3F8AE0',
       white: '#ffffff',
       black: '#000000',
+      dark: '#1a1a1a',
+      orange: '#f5c518',
       transparent: 'transparent',
     },
     text: {
@@ -83,6 +96,16 @@ const defaultTheme = createTheme({
     title: 'Montserrat, sans-serif',
     subtitle: 'Montserrat, sans-serif',
     text: 'Open Sans, sans-serif',
+  },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+      xxl: 1950,
+    },
   },
 });
 
