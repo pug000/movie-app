@@ -1,3 +1,4 @@
+import { ImageLoaderProps } from 'next/image';
 import { Methods } from 'ts/enums';
 
 const splitArray = <T>(array: T[], size: number): T[][] => {
@@ -24,4 +25,7 @@ const addFetchOptions = (
   },
 });
 
-export { splitArray, addFetchOptions };
+const loadImage = ({ src, width, quality = 75 }: ImageLoaderProps) =>
+  `${src}?w=${width}px&q=${quality}`;
+
+export { splitArray, addFetchOptions, loadImage };

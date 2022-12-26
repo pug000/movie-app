@@ -1,0 +1,161 @@
+import { Button, IconButton, Stack, styled, Typography } from '@mui/material';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+const StyledSection = styled('section')({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1.88rem',
+  padding: '0 1rem 0 1rem',
+  marginBottom: '5rem',
+});
+
+const StyledTitle = styled(Typography)(({ theme }) => ({
+  color: theme.palette.background.white,
+
+  [theme.breakpoints.down('sm')]: {
+    fontSize: theme.typography.h3.fontSize,
+  },
+}));
+
+const StyledStack = styled(Stack)({
+  position: 'relative',
+});
+
+const StyledSwiper = styled(Swiper)(({ theme }) => ({
+  maxWidth: 1280,
+  width: '100%',
+
+  '& .swiper-button-prev': {
+    left: 0,
+  },
+
+  '& .swiper-button-next': {
+    right: 0,
+  },
+
+  '& .swiper-button-prev, .swiper-button-next': {
+    color: theme.palette.background.white,
+  },
+
+  [theme.breakpoints.up('xxl')]: {
+    maxWidth: 'none',
+  },
+}));
+
+const StyledSwiperSlide = styled(SwiperSlide)({
+  width: '100%',
+});
+
+const StyledItem = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '0.3rem',
+  backgroundColor: theme.palette.background.dark,
+  width: '12.5rem',
+  margin: '0 auto',
+  borderRadius: '0 0 0.25rem 0.25rem',
+}));
+
+const StyledImage = styled(Image)(({ theme }) => ({
+  width: '12.5rem',
+  height: '18.75rem',
+  transition: theme.transitions.create('opacity'),
+
+  '&:hover': {
+    opacity: 0.6,
+  },
+}));
+
+const StyledItemInfo = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  gap: '0.5rem',
+  padding: '0 0.5rem 1rem 0.5rem',
+});
+
+const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  backgroundColor: theme.palette.background.transparent,
+
+  '&:hover': {
+    backgroundColor: 'hsla(0,0%,100%,.15)',
+
+    '& svg': {
+      color: theme.palette.background.white,
+    },
+  },
+}));
+
+const StyledRatingWrapper = styled('div')({
+  display: 'flex',
+  gap: '0.5rem',
+  alignItems: 'center',
+  width: '100%',
+  justifyContent: 'space-around',
+});
+
+const StyledRating = styled('span')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '0.3rem',
+  color: theme.palette.text.white,
+}));
+
+const StyledLink = styled(Link)(({ theme }) => ({
+  color: theme.palette.text.white,
+  textDecoration: 'none',
+  transition: theme.transitions.create('opacity'),
+  fontSize: theme.typography.body2.fontSize,
+  textOverflow: 'ellipsis',
+  height: '3rem',
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: 2,
+  overflow: 'hidden',
+  width: '100%',
+
+  '&:hover': {
+    opacity: 0.6,
+  },
+}));
+
+const StyledButton = styled(Button)(({ theme }) => ({
+  backgroundColor: 'hsla(0,0%,100%,.08)',
+  color: theme.palette.primary.main,
+  fontFamily: theme.fonts.title,
+  padding: '0 0.75rem',
+  borderRadius: '0.25rem',
+  lineHeight: '1.75rem',
+  fontSize: theme.typography.body2.fontSize,
+  textTransform: 'none',
+  alignSelf: 'center',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  width: '100%',
+  minWidth: '3rem',
+  minHeight: '2.25rem',
+
+  '&:hover': {
+    backgroundColor: 'hsla(0,0%,100%,.15)',
+  },
+}));
+
+export {
+  StyledSection,
+  StyledTitle,
+  StyledSwiper,
+  StyledSwiperSlide,
+  StyledItem,
+  StyledImage,
+  StyledItemInfo,
+  StyledIconButton,
+  StyledButton,
+  StyledRatingWrapper,
+  StyledRating,
+  StyledLink,
+  StyledStack,
+};

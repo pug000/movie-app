@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { ImageLoaderProps } from 'next/image';
 import Link from 'next/link';
 import { v4 } from 'uuid';
 
@@ -13,7 +12,8 @@ import { wrapper } from 'redux/store';
 
 import useAppSelector from 'hooks/useAppSelector';
 
-import imageUrl from 'utils/constants';
+import { imageUrl } from 'utils/constants';
+import { loadImage } from 'utils/functions';
 
 import Layout from 'components/Layout/Layout';
 
@@ -29,9 +29,6 @@ import {
   Title,
   StyledButton,
 } from './Home.style';
-
-const loadImage = ({ src, width, quality = 75 }: ImageLoaderProps) =>
-  `${src}?w=${width}px&q=${quality}`;
 
 function Home() {
   const moviePosters = useAppSelector(getMoviePostersSelector);
