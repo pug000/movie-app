@@ -12,6 +12,8 @@ const StyledHeader = styled(AppBar)<HeaderProps>(({ theme, ishomepage }) => ({
       ? theme.palette.background.transparent
       : theme.palette.background.black,
   boxShadow: 'none',
+  position: ishomepage !== 'true' ? 'sticky' : 'fixed',
+  marginBottom: '3.13rem',
 }));
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
@@ -27,9 +29,9 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     paddingRight: '3.5rem',
   },
 
-  [theme.breakpoints.down('md')]: {
+  [theme.breakpoints.down('lg')]: {
     minWidth: 0,
-    maxWidth: 900,
+    maxWidth: 1200,
   },
 
   [theme.breakpoints.between('xs', 'md')]: {

@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { useRouter } from 'next/router';
 
 import SearchBar from 'components/SearchBar/SearchBar';
 
@@ -10,10 +9,11 @@ import {
   HeaderBackground,
 } from './Header.style';
 
-function Header() {
-  const { pathname } = useRouter();
-  const isHomePage = pathname === '/';
+interface HeaderProps {
+  isHomePage: boolean;
+}
 
+function Header({ isHomePage }: HeaderProps) {
   return (
     <StyledHeader ishomepage={`${isHomePage}`}>
       <StyledToolbar>
