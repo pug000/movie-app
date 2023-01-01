@@ -36,6 +36,7 @@ const StyledSectionHeader = styled('div')(({ theme }) => ({
 
     '& a': {
       alignSelf: 'flex-end',
+      fontSize: theme.typography.body1.fontSize,
     },
   },
 }));
@@ -98,13 +99,17 @@ const StyledImage = styled(Image)(({ theme }) => ({
   },
 }));
 
-const StyledItemInfo = styled('div')({
+const StyledItemInfo = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
   gap: '0.5rem',
   padding: '0 0.5rem 1rem 0.5rem',
-});
+
+  '& a': {
+    fontSize: theme.typography.body2.fontSize,
+  },
+}));
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
   backgroundColor: theme.palette.background.transparent,
@@ -138,7 +143,6 @@ const StyledLink = styled(Link)(({ theme }) => ({
   color: theme.palette.text.white,
   textDecoration: 'none',
   transition: theme.transitions.create(['opacity', 'color']),
-  fontSize: theme.typography.body2.fontSize,
   textOverflow: 'ellipsis',
   height: '3rem',
   display: '-webkit-box',
