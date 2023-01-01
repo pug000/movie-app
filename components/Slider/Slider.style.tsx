@@ -11,11 +11,41 @@ const StyledSection = styled('section')({
   marginBottom: '5rem',
 });
 
+const StyledSectionHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: '0 1.8rem',
+  gap: '2.5rem',
+
+  '& a': {
+    display: 'flex',
+    alignItems: 'center',
+    color: theme.palette.primary.main,
+
+    '&:hover': {
+      opacity: 1,
+      color: theme.palette.text.white,
+    },
+  },
+
+  [theme.breakpoints.down('s')]: {
+    flexDirection: 'column',
+    padding: '0 1rem',
+    gap: 'initial',
+
+    '& a': {
+      alignSelf: 'flex-end',
+    },
+  },
+}));
+
 const StyledTitle = styled(Typography)(({ theme }) => ({
   color: theme.palette.background.white,
 
-  [theme.breakpoints.down('sm')]: {
-    fontSize: theme.typography.h3.fontSize,
+  [theme.breakpoints.down('s')]: {
+    fontSize: theme.typography.h4.fontSize,
+    alignSelf: 'flex-start',
   },
 }));
 
@@ -24,7 +54,7 @@ const StyledStack = styled(Stack)({
 });
 
 const StyledSwiper = styled(Swiper)(({ theme }) => ({
-  maxWidth: 1280,
+  maxWidth: 1440,
   width: '100%',
 
   '& .swiper-button-prev': {
@@ -107,7 +137,7 @@ const StyledRating = styled('span')(({ theme }) => ({
 const StyledLink = styled(Link)(({ theme }) => ({
   color: theme.palette.text.white,
   textDecoration: 'none',
-  transition: theme.transitions.create('opacity'),
+  transition: theme.transitions.create(['opacity', 'color']),
   fontSize: theme.typography.body2.fontSize,
   textOverflow: 'ellipsis',
   height: '3rem',
@@ -115,7 +145,6 @@ const StyledLink = styled(Link)(({ theme }) => ({
   WebkitBoxOrient: 'vertical',
   WebkitLineClamp: 2,
   overflow: 'hidden',
-  width: '100%',
 
   '&:hover': {
     opacity: 0.6,
@@ -146,6 +175,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
 
 export {
   StyledSection,
+  StyledSectionHeader,
   StyledTitle,
   StyledSwiper,
   StyledSwiperSlide,

@@ -29,6 +29,7 @@ import {
   StyledLink,
   StyledItemInfo,
   StyledButton,
+  StyledSectionHeader,
 } from './Slider.style';
 
 interface SliderProps {
@@ -39,7 +40,10 @@ interface SliderProps {
 function Slider({ initialData, sliderTitle }: SliderProps) {
   return (
     <StyledSection>
-      <StyledTitle variant="h2">{sliderTitle}</StyledTitle>
+      <StyledSectionHeader>
+        <StyledTitle variant="h2">{sliderTitle}</StyledTitle>
+        <StyledLink href="/movies">View all</StyledLink>
+      </StyledSectionHeader>
       <StyledSwiper
         allowTouchMove
         modules={[Navigation, Virtual]}
