@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { Navigation, Virtual } from 'swiper';
 import Link from 'next/link';
 
-import { Movie } from 'ts/interfaces';
+import { Movie, SortType } from 'ts/interfaces';
 
 import { imageUrl, swiperBreakpoints } from 'utils/constants';
 import { loadImage } from 'utils/functions';
@@ -36,14 +36,24 @@ interface SliderProps {
   initialData: Movie[];
   routerPath: string;
   sliderTitle?: string;
+  sortBy: SortType;
+  setSortTypeOnClick: (sortType: SortType) => void;
 }
 
-function Slider({ initialData, routerPath, sliderTitle }: SliderProps) {
+function Slider({
+  initialData,
+  routerPath,
+  sliderTitle,
+  sortBy,
+  setSortTypeOnClick,
+}: SliderProps) {
   return (
     <StyledSection>
       <StyledSectionHeader>
         <StyledTitle variant="h2">{sliderTitle}</StyledTitle>
-        <StyledLink href={routerPath}>View all</StyledLink>
+        <StyledLink href={routerPath} onClick={() => setSortTypeOnClick(sortBy)}>
+          View all
+        </StyledLink>
       </StyledSectionHeader>
       <StyledSwiper
         allowTouchMove

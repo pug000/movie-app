@@ -5,6 +5,7 @@ import { FetchBaseQueryError, FetchBaseQueryMeta } from '@reduxjs/toolkit/query'
 import { RootState } from 'redux/store';
 
 import { splitArray, addFetchOptions } from 'utils/functions';
+import { endpoints, sorts, titles } from 'utils/constants';
 
 import { Endpoints } from 'ts/enums';
 import { Movie, ResponseResult, ResponseResultWithDates } from 'ts/interfaces';
@@ -27,18 +28,6 @@ const moviesApiSlice = apiSlice.injectEndpoints({
     }),
     getAllMovies: builder.query<ResponseResultWithDates[], null>({
       queryFn: async (_arg, _api, _extraOptions, baseQuery) => {
-        const titles = [
-          'Latest movies',
-          'Top rated movies',
-          'Popular movies',
-          'Upcoming movies',
-        ];
-        const endpoints = [
-          `${Endpoints.latest}`,
-          `${Endpoints.topRated}`,
-          `${Endpoints.popular}`,
-          `${Endpoints.upcoming}`,
-        ];
         const result = await Promise.all(
           endpoints.map(
             async (endpoint) =>
@@ -53,7 +42,9 @@ const moviesApiSlice = apiSlice.injectEndpoints({
           .filter(({ error }) => error)
           .map(({ error }) => error ?? []) as FetchBaseQueryError[];
         const data = result.map((response, index) =>
-          response.data ? { ...response.data, title: titles[index] } : []
+          response.data
+            ? { ...response.data, title: titles[index], sortBy: sorts[index] }
+            : []
         ) as ResponseResultWithDates[];
 
         return errors.length ? { error: errors[0] } : { data };

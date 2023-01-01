@@ -1,18 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { SortType } from 'ts/interfaces';
+import { sorts } from 'utils/constants';
+
 interface MovieState {
-  movieSortType: string;
+  movieSortType: SortType;
 }
 
 const initialState: MovieState = {
-  movieSortType: 'release_date.desc',
+  movieSortType: sorts[0],
 };
 
 const movieSlice = createSlice({
   name: 'movie',
   initialState,
   reducers: {
-    setMovieSortType(state, { payload }: PayloadAction<string>) {
+    setMovieSortType(state, { payload }: PayloadAction<SortType>) {
       state.movieSortType = payload;
     },
   },

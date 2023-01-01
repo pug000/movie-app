@@ -22,12 +22,18 @@ interface ResponseResult {
   total_pages: number;
 }
 
+interface SortType {
+  type: string;
+  maxReleaseDate: string;
+}
+
 interface ResponseResultWithDates extends ResponseResult {
   dates?: {
     minimum: string;
     maximum: string;
   };
-  title?: string;
+  title: string;
+  sortBy: SortType;
 }
 
-export type { ResponseResult, ResponseResultWithDates, Movie };
+export type { ResponseResult, ResponseResultWithDates, Movie, SortType };
