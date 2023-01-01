@@ -2,10 +2,10 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
 
 import apiSlice from './services/apiSlice';
-import testSlice from './slices/testSlice';
+import movieSlice from './slices/movieSlice';
 
 const rootReducer = combineReducers({
-  test: testSlice.reducer,
+  movie: movieSlice.reducer,
 
   [apiSlice.reducerPath]: apiSlice.reducer,
 });

@@ -1,10 +1,10 @@
 import { bindActionCreators } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 
-import testSlice from 'redux/slices/testSlice';
+import movieSlice from 'redux/slices/movieSlice';
 
 const allActions = {
-  ...testSlice.actions,
+  ...movieSlice.actions,
 };
 
 const useActions = () => {
