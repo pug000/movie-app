@@ -9,9 +9,12 @@ import {
   useGetAllMoviesQuery,
 } from 'redux/services/moviesApiSlice';
 
+import useAppSelector from 'hooks/useAppSelector';
+
 import Layout from 'components/Layout/Layout';
 import Slider from 'components/Slider/Slider';
-import useAppSelector from 'hooks/useAppSelector';
+
+import { RouterPaths } from 'ts/enums';
 
 function Main() {
   const movies = useAppSelector(getAllMoviesSelector);
@@ -21,7 +24,12 @@ function Main() {
     <Layout title="Main">
       {movies.length > 0 &&
         movies.map(({ results, title }) => (
-          <Slider key={v4()} initialData={results} sliderTitle={title} />
+          <Slider
+            key={v4()}
+            initialData={results}
+            routerPath={RouterPaths.movies}
+            sliderTitle={title}
+          />
         ))}
     </Layout>
   );

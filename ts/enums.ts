@@ -20,4 +20,10 @@ enum Methods {
   delete = 'DELETE',
 }
 
-export { Endpoints, Methods };
+enum RouterPaths {
+  home = '/',
+  main = '/main',
+  movies = '/movies',
+}
+
+export { Endpoints, Methods, RouterPaths };

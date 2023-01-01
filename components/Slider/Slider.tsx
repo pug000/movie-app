@@ -34,15 +34,16 @@ import {
 
 interface SliderProps {
   initialData: Movie[];
+  routerPath: string;
   sliderTitle?: string;
 }
 
-function Slider({ initialData, sliderTitle }: SliderProps) {
+function Slider({ initialData, routerPath, sliderTitle }: SliderProps) {
   return (
     <StyledSection>
       <StyledSectionHeader>
         <StyledTitle variant="h2">{sliderTitle}</StyledTitle>
-        <StyledLink href="/movies">View all</StyledLink>
+        <StyledLink href={routerPath}>View all</StyledLink>
       </StyledSectionHeader>
       <StyledSwiper
         allowTouchMove
@@ -60,7 +61,7 @@ function Slider({ initialData, sliderTitle }: SliderProps) {
             ) => (
               <StyledSwiperSlide key={id} virtualIndex={index}>
                 <StyledItem>
-                  <Link href="/main">
+                  <Link href={`${routerPath}/${id}`}>
                     <StyledImage
                       loader={loadImage}
                       src={`${imageUrl}w200/${poster_path ?? backdrop_path}`}
@@ -83,7 +84,7 @@ function Slider({ initialData, sliderTitle }: SliderProps) {
                         <StyledInfoIcon />
                       </StyledIconButton>
                     </StyledRatingWrapper>
-                    <StyledLink href="/main">{title}</StyledLink>
+                    <StyledLink href={`${routerPath}/${id}`}>{title}</StyledLink>
                     <StyledButton startIcon={<StyledAddIcon />}>Watchlist</StyledButton>
                   </StyledItemInfo>
                 </StyledItem>

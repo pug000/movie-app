@@ -17,6 +17,8 @@ import { loadImage } from 'utils/functions';
 
 import Layout from 'components/Layout/Layout';
 
+import { RouterPaths } from 'ts/enums';
+
 import {
   StyledPosterSection,
   StyledWrapper,
@@ -65,7 +67,7 @@ function Home() {
               variant="contained"
               size="large"
               LinkComponent={Link}
-              href="/main"
+              href={RouterPaths.main}
             >
               Enter
             </StyledButton>

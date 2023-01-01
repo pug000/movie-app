@@ -2,6 +2,8 @@ import { memo } from 'react';
 
 import SearchBar from 'components/SearchBar/SearchBar';
 
+import { RouterPaths } from 'ts/enums';
+
 import {
   StyledHeader,
   StyledToolbar,
@@ -17,7 +19,7 @@ function Header({ isHomePage }: HeaderProps) {
   return (
     <StyledHeader ishomepage={`${isHomePage}`}>
       <StyledToolbar>
-        <StyledLink href="/">Movie App</StyledLink>
+        <StyledLink href={RouterPaths.home}>Movie App</StyledLink>
         <SearchBar />
       </StyledToolbar>
       {isHomePage && <HeaderBackground />}
