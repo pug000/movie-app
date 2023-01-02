@@ -24,6 +24,7 @@ declare module '@mui/material/styles' {
     black?: string;
     dark?: string;
     orange?: string;
+    grey?: string;
     transparent?: string;
   }
 
@@ -46,11 +47,12 @@ declare module '@mui/material/styles' {
 const defaultTheme = createTheme({
   palette: {
     background: {
-      default: '#3F8AE0',
+      default: '#3f8ae0',
       white: '#ffffff',
       black: '#000000',
       dark: '#1a1a1a',
       orange: '#f5c518',
+      grey: '#969fa4',
       transparent: 'transparent',
     },
     text: {

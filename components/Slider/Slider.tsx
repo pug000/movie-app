@@ -1,5 +1,5 @@
-import { memo } from 'react';
-import { Navigation, Virtual } from 'swiper';
+import { memo, useRef } from 'react';
+import { Navigation } from 'swiper';
 import Link from 'next/link';
 
 import { Movie, SortType } from 'ts/interfaces';
@@ -11,6 +11,8 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/virtual';
 import {
+  NavigationNextIcon,
+  NavigationPrevIcon,
   StyledAddIcon,
   StyledInfoIcon,
   StyledStarIcon,
@@ -30,6 +32,8 @@ import {
   StyledItemInfo,
   StyledButton,
   StyledSectionHeader,
+  NavigationButton,
+  StyledBox,
 } from './Slider.style';
 
 interface SliderProps {
@@ -47,6 +51,9 @@ function Slider({
   sortBy,
   setSortTypeOnClick,
 }: SliderProps) {
+  const navigationPrevRef = useRef<HTMLButtonElement | null>(null);
+  const navigationNextRef = useRef<HTMLButtonElement | null>(null);
+
   return (
     <StyledSection>
       <StyledSectionHeader>
@@ -55,53 +62,76 @@ function Slider({
           View all
         </StyledLink>
       </StyledSectionHeader>
-      <StyledSwiper
-        allowTouchMove
-        modules={[Navigation, Virtual]}
-        slidesPerView={5}
-        breakpoints={swiperBreakpoints}
-        navigation
-      >
-        {initialData
-          .slice(10)
-          .map(
-            (
-              { id, title, original_title, poster_path, backdrop_path, vote_average },
-              index
-            ) => (
-              <StyledSwiperSlide key={id} virtualIndex={index}>
-                <StyledItem>
-                  <Link href={`${routerPath}/${id}`}>
-                    <StyledImage
-                      loader={loadImage}
-                      src={`${imageUrl}w200/${poster_path ?? backdrop_path}`}
-                      width={0}
-                      height={0}
-                      priority
-                      alt={title ?? original_title}
-                    />
-                  </Link>
-                  <StyledItemInfo>
-                    <StyledRatingWrapper>
-                      <StyledRating>
-                        <StyledStarIcon />
-                        {vote_average}
-                      </StyledRating>
-                      <StyledIconButton>
-                        <StyledStarOutlineIcon />
-                      </StyledIconButton>
-                      <StyledIconButton>
-                        <StyledInfoIcon />
-                      </StyledIconButton>
-                    </StyledRatingWrapper>
-                    <StyledLink href={`${routerPath}/${id}`}>{title}</StyledLink>
-                    <StyledButton startIcon={<StyledAddIcon />}>Watchlist</StyledButton>
-                  </StyledItemInfo>
-                </StyledItem>
-              </StyledSwiperSlide>
-            )
-          )}
-      </StyledSwiper>
+      <StyledBox>
+        <NavigationButton ref={navigationPrevRef}>
+          <NavigationPrevIcon />
+        </NavigationButton>
+        <StyledSwiper
+          allowTouchMove
+          modules={[Navigation]}
+          slidesPerView={5}
+          breakpoints={swiperBreakpoints}
+          onBeforeInit={({ params, ...swiper }) => {
+            if (
+              typeof params.navigation !== 'boolean' &&
+              typeof params.navigation !== 'undefined'
+            ) {
+              const { navigation } = params;
+              navigation.prevEl = navigationPrevRef.current;
+              navigation.nextEl = navigationNextRef.current;
+              swiper.navigation.init();
+              swiper.navigation.update();
+            }
+          }}
+        >
+          {initialData
+            .slice(10)
+            .map(
+              ({
+                id,
+                title,
+                original_title,
+                poster_path,
+                backdrop_path,
+                vote_average,
+              }) => (
+                <StyledSwiperSlide key={id}>
+                  <StyledItem>
+                    <Link href={`${routerPath}/${id}`}>
+                      <StyledImage
+                        loader={loadImage}
+                        src={`${imageUrl}w200/${poster_path ?? backdrop_path}`}
+                        width={0}
+                        height={0}
+                        priority
+                        alt={title ?? original_title}
+                      />
+                    </Link>
+                    <StyledItemInfo>
+                      <StyledRatingWrapper>
+                        <StyledRating>
+                          <StyledStarIcon />
+                          {vote_average}
+                        </StyledRating>
+                        <StyledIconButton>
+                          <StyledStarOutlineIcon />
+                        </StyledIconButton>
+                        <StyledIconButton>
+                          <StyledInfoIcon />
+                        </StyledIconButton>
+                      </StyledRatingWrapper>
+                      <StyledLink href={`${routerPath}/${id}`}>{title}</StyledLink>
+                      <StyledButton startIcon={<StyledAddIcon />}>Watchlist</StyledButton>
+                    </StyledItemInfo>
+                  </StyledItem>
+                </StyledSwiperSlide>
+              )
+            )}
+        </StyledSwiper>
+        <NavigationButton ref={navigationNextRef}>
+          <NavigationNextIcon />
+        </NavigationButton>
+      </StyledBox>
     </StyledSection>
   );
 }

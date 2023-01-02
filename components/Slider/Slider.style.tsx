@@ -1,4 +1,4 @@
-import { Button, IconButton, Stack, styled, Typography } from '@mui/material';
+import { Box, Button, IconButton, Stack, styled, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -29,14 +29,14 @@ const StyledSectionHeader = styled('div')(({ theme }) => ({
     },
   },
 
-  [theme.breakpoints.down('s')]: {
+  [theme.breakpoints.down('sm')]: {
     flexDirection: 'column',
     padding: '0 1rem',
     gap: 'initial',
 
     '& a': {
       alignSelf: 'flex-end',
-      fontSize: theme.typography.body1.fontSize,
+      fontSize: theme.typography.body2.fontSize,
     },
   },
 }));
@@ -44,18 +44,23 @@ const StyledSectionHeader = styled('div')(({ theme }) => ({
 const StyledTitle = styled(Typography)(({ theme }) => ({
   color: theme.palette.background.white,
 
-  [theme.breakpoints.down('s')]: {
+  [theme.breakpoints.down('sm')]: {
     fontSize: theme.typography.h4.fontSize,
     alignSelf: 'flex-start',
   },
 }));
+
+const StyledBox = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+});
 
 const StyledStack = styled(Stack)({
   position: 'relative',
 });
 
 const StyledSwiper = styled(Swiper)(({ theme }) => ({
-  maxWidth: 1440,
+  maxWidth: 1280,
   width: '100%',
 
   '& .swiper-button-prev': {
@@ -177,10 +182,25 @@ const StyledButton = styled(Button)(({ theme }) => ({
   },
 }));
 
+const NavigationButton = styled(IconButton)(({ theme }) => ({
+  width: '2.5rem',
+  height: '2.5rem',
+
+  '&.swiper-button-disabled': {
+    cursor: 'auto',
+    pointerEvents: 'none',
+
+    '& svg': {
+      color: theme.palette.background.grey,
+    },
+  },
+}));
+
 export {
   StyledSection,
   StyledSectionHeader,
   StyledTitle,
+  StyledBox,
   StyledSwiper,
   StyledSwiperSlide,
   StyledItem,
@@ -192,4 +212,5 @@ export {
   StyledRating,
   StyledLink,
   StyledStack,
+  NavigationButton,
 };

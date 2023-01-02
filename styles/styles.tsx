@@ -2,6 +2,8 @@ import StarIcon from '@mui/icons-material/Star';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import AddIcon from '@mui/icons-material/Add';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { styled } from '@mui/material';
 
 const StyledStarIcon = styled(StarIcon)(({ theme }) => ({
@@ -29,4 +31,29 @@ const StyledInfoIcon = styled(InfoOutlinedIcon)(({ theme }) => ({
   transition: theme.transitions.create('color'),
 }));
 
-export { StyledStarIcon, StyledStarOutlineIcon, StyledAddIcon, StyledInfoIcon };
+const NavigationPrevIcon = styled(ArrowBackIosNewIcon)(({ theme }) => ({
+  color: theme.palette.background.white,
+  transition: theme.transitions.create('opacity'),
+
+  '&:hover': {
+    opacity: 0.6,
+  },
+}));
+
+const NavigationNextIcon = styled(ArrowForwardIosIcon)(({ theme }) => ({
+  color: theme.palette.background.white,
+  transition: theme.transitions.create('opacity'),
+
+  '&:hover': {
+    opacity: 0.6,
+  },
+}));
+
+export {
+  StyledStarIcon,
+  StyledStarOutlineIcon,
+  StyledAddIcon,
+  StyledInfoIcon,
+  NavigationPrevIcon,
+  NavigationNextIcon,
+};
