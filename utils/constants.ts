@@ -6,11 +6,11 @@ const nextWeekReleaseDate = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1
   .toISOString()
   .slice(0, -14);
 
-const minReleaseDate = new Date(new Date().setFullYear(new Date().getFullYear() - 100))
+const minReleaseDate = new Date(new Date().setFullYear(new Date().getFullYear() - 40))
   .toISOString()
   .slice(0, -14);
 
-const maxReleaseDate = new Date(new Date().setFullYear(new Date().getFullYear() + 3))
+const maxReleaseDate = new Date(new Date().setFullYear(new Date().getFullYear() + 2))
   .toISOString()
   .slice(0, -14);
 
@@ -47,19 +47,19 @@ const endpoints = [
 const sorts: SortType[] = [
   {
     type: 'primary_release_date.desc',
-    maxReleaseDate: nextWeekReleaseDate,
+    releaseDate: nextWeekReleaseDate,
   },
   {
     type: 'vote_count.desc',
-    maxReleaseDate: nextWeekReleaseDate,
+    releaseDate: nextWeekReleaseDate,
   },
   {
     type: 'popularity.desc',
-    maxReleaseDate: nextWeekReleaseDate,
+    releaseDate: nextWeekReleaseDate,
   },
   {
     type: 'primary_release_date.desc',
-    maxReleaseDate,
+    releaseDate: maxReleaseDate,
   },
 ];
 

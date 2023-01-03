@@ -1,36 +1,22 @@
 import { memo, useRef } from 'react';
 import { Navigation } from 'swiper';
-import Link from 'next/link';
 
 import { Movie, SortType } from 'ts/interfaces';
 
-import { imageUrl, swiperBreakpoints } from 'utils/constants';
-import { loadImage } from 'utils/functions';
+import { swiperBreakpoints } from 'utils/constants';
+
+import Card from 'components/Card/Card';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/virtual';
+import { NavigationNextIcon, NavigationPrevIcon } from 'styles/styles';
 import {
-  NavigationNextIcon,
-  NavigationPrevIcon,
-  StyledAddIcon,
-  StyledInfoIcon,
-  StyledStarIcon,
-  StyledStarOutlineIcon,
-} from 'styles/styles';
-import {
-  StyledImage,
-  StyledItem,
   StyledSection,
-  StyledIconButton,
   StyledTitle,
   StyledSwiper,
   StyledSwiperSlide,
-  StyledRatingWrapper,
-  StyledRating,
   StyledLink,
-  StyledItemInfo,
-  StyledButton,
   StyledSectionHeader,
   NavigationButton,
   StyledBox,
@@ -58,8 +44,10 @@ function Slider({
     <StyledSection>
       <StyledSectionHeader>
         <StyledTitle variant="h2">{sliderTitle}</StyledTitle>
-        <StyledLink href={routerPath} onClick={() => setSortTypeOnClick(sortBy)}>
-          View all
+        <StyledLink href={routerPath}>
+          <button type="button" onClick={() => setSortTypeOnClick(sortBy)}>
+            View all
+          </button>
         </StyledLink>
       </StyledSectionHeader>
       <StyledBox>
@@ -84,49 +72,11 @@ function Slider({
             }
           }}
         >
-          {initialData
-            .slice(10)
-            .map(
-              ({
-                id,
-                title,
-                original_title,
-                poster_path,
-                backdrop_path,
-                vote_average,
-              }) => (
-                <StyledSwiperSlide key={id}>
-                  <StyledItem>
-                    <Link href={`${routerPath}/${id}`}>
-                      <StyledImage
-                        loader={loadImage}
-                        src={`${imageUrl}w200/${poster_path ?? backdrop_path}`}
-                        width={0}
-                        height={0}
-                        priority
-                        alt={title ?? original_title}
-                      />
-                    </Link>
-                    <StyledItemInfo>
-                      <StyledRatingWrapper>
-                        <StyledRating>
-                          <StyledStarIcon />
-                          {vote_average}
-                        </StyledRating>
-                        <StyledIconButton>
-                          <StyledStarOutlineIcon />
-                        </StyledIconButton>
-                        <StyledIconButton>
-                          <StyledInfoIcon />
-                        </StyledIconButton>
-                      </StyledRatingWrapper>
-                      <StyledLink href={`${routerPath}/${id}`}>{title}</StyledLink>
-                      <StyledButton startIcon={<StyledAddIcon />}>Watchlist</StyledButton>
-                    </StyledItemInfo>
-                  </StyledItem>
-                </StyledSwiperSlide>
-              )
-            )}
+          {initialData.slice(10).map((card) => (
+            <StyledSwiperSlide key={card.id}>
+              <Card card={card} routerPathById={`${routerPath}/${card.id}`} />
+            </StyledSwiperSlide>
+          ))}
         </StyledSwiper>
         <NavigationButton ref={navigationNextRef}>
           <NavigationNextIcon />

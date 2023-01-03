@@ -24,7 +24,7 @@ interface ResponseResult {
 
 interface SortType {
   type: string;
-  maxReleaseDate: string;
+  releaseDate: string;
 }
 
 interface ResponseResultWithDates extends ResponseResult {

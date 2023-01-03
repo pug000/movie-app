@@ -9,7 +9,7 @@ const nextConfig = {
     API_KEY: process.env.API_KEY,
   },
   images: {
-    domains: ['themoviedb.org', 'image.tmdb.org'],
+    domains: ['themoviedb.org', 'image.tmdb.org', 'via.placeholder.com'],
   },
 };
 
