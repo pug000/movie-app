@@ -39,19 +39,4 @@ const getImage = (
 const loadImage = ({ src, width, quality = 75 }: ImageLoaderProps) =>
   `${src}?w=${width}px&q=${quality}`;
 
-const saveInLocalStorage = <T>(key: string, value: T | T[]) =>
-  localStorage.setItem(key, JSON.stringify(value));
-
-const getValueFromLocalStorage = <T>(key: string, defaultValue: T | T[]): T => {
-  const value = localStorage.getItem(key);
-  return value ? JSON.parse(value) : defaultValue;
-};
-
-export {
-  splitArray,
-  addFetchOptions,
-  getImage,
-  loadImage,
-  saveInLocalStorage,
-  getValueFromLocalStorage,
-};
+export { splitArray, addFetchOptions, getImage, loadImage };
