@@ -4,20 +4,23 @@ import { ThemeProvider } from '@mui/material/styles';
 
 import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundary';
 
-import { wrapper } from 'redux/store';
+import { persistor, wrapper } from 'redux/store';
 
 import defaultTheme from 'styles/theme';
 import GlobalStyle from 'styles/Global';
+import { PersistGate } from 'redux-persist/integration/react';
 
 function App({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);
   return (
     <ErrorBoundary>
       <Provider store={store}>
-        <ThemeProvider theme={defaultTheme}>
-          <GlobalStyle />
-          <Component {...props.pageProps} />
-        </ThemeProvider>
+        <PersistGate loading={null} persistor={persistor}>
+          <ThemeProvider theme={defaultTheme}>
+            <GlobalStyle />
+            <Component {...props.pageProps} />
+          </ThemeProvider>
+        </PersistGate>
       </Provider>
     </ErrorBoundary>
   );

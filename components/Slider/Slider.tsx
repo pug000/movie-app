@@ -44,10 +44,8 @@ function Slider({
     <StyledSection>
       <StyledSectionHeader>
         <StyledTitle variant="h2">{sliderTitle}</StyledTitle>
-        <StyledLink href={routerPath}>
-          <button type="button" onClick={() => setSortTypeOnClick(sortBy)}>
-            View all
-          </button>
+        <StyledLink href={routerPath} onClick={() => setSortTypeOnClick(sortBy)}>
+          View all
         </StyledLink>
       </StyledSectionHeader>
       <StyledBox>
