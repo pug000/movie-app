@@ -5,26 +5,27 @@ import { FetchBaseQueryError, FetchBaseQueryMeta } from '@reduxjs/toolkit/query'
 import { RootState } from 'redux/store';
 
 import { splitArray, addFetchOptions } from 'utils/functions';
-import { endpoints, sorts, titles } from 'utils/constants';
+import { endpoints, minReleaseDate, sorts, titles } from 'utils/constants';
 
 import { Endpoints } from 'ts/enums';
-import { Movie, ResponseResult, ResponseResultWithDates } from 'ts/interfaces';
+import { Movie, ResponseResult, ResponseResultWithDates, SortType } from 'ts/interfaces';
 
 import apiSlice from './apiSlice';
 
+interface DiscoverMoviesArguments extends SortType {
+  page: number;
+}
+
 const moviesApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getLatestMovies: builder.query<ResponseResultWithDates, number | null>({
-      query: (page) => addFetchOptions(`${Endpoints.latest}`, { page: page ?? 1 }),
-    }),
-    getUpcomingMovies: builder.query<ResponseResultWithDates, number | null>({
-      query: (page) => addFetchOptions(`${Endpoints.upcoming}`, { page: page ?? 1 }),
-    }),
-    getTopRatedMovies: builder.query<ResponseResult, number | null>({
-      query: (page) => addFetchOptions(`${Endpoints.topRated}`, { page: page ?? 1 }),
-    }),
-    getPopularMovies: builder.query<ResponseResult, number | null>({
-      query: (page) => addFetchOptions(`${Endpoints.popular}`, { page: page ?? 1 }),
+    getDiscoverMovies: builder.query<ResponseResult, DiscoverMoviesArguments>({
+      query: ({ page = 1, type, releaseDate }) =>
+        addFetchOptions(`${Endpoints.discoverMovies}`, {
+          page,
+          sort_by: type,
+          'primary_release_date.lte': releaseDate,
+          'primary_release_date.gte': minReleaseDate,
+        }),
     }),
     getAllMovies: builder.query<ResponseResultWithDates[], null>({
       queryFn: async (_arg, _api, _extraOptions, baseQuery) => {
@@ -79,22 +80,13 @@ const moviesApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetMoviePostersQuery,
-  useGetLatestMoviesQuery,
-  useGetUpcomingMoviesQuery,
-  useGetTopRatedMoviesQuery,
-  useGetPopularMoviesQuery,
   useGetAllMoviesQuery,
+  useGetDiscoverMoviesQuery,
   util: { getRunningQueriesThunk },
 } = moviesApiSlice;
 
-export const {
-  getMoviePosters,
-  getLatestMovies,
-  getUpcomingMovies,
-  getTopRatedMovies,
-  getPopularMovies,
-  getAllMovies,
-} = moviesApiSlice.endpoints;
+export const { getMoviePosters, getAllMovies, getDiscoverMovies } =
+  moviesApiSlice.endpoints;
 
 const getMoviePostersSelector = createSelector(
   (state: RootState) => getMoviePosters.select(null)(state),
@@ -106,4 +98,10 @@ const getAllMoviesSelector = createSelector(
   ({ data }) => data ?? []
 );
 
-export { getMoviePostersSelector, getAllMoviesSelector };
+const getDiscoverMoviesSelector = createSelector(
+  (state: RootState, params: DiscoverMoviesArguments) =>
+    getDiscoverMovies.select(params)(state),
+  ({ data }) => data
+);
+
+export { getMoviePostersSelector, getAllMoviesSelector, getDiscoverMoviesSelector };

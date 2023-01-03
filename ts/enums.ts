@@ -4,6 +4,7 @@ enum Endpoints {
   lists = 'movie/lists',
   popular = 'movie/popular',
   upcoming = 'movie/upcoming',
+  discoverMovies = 'discover/movie',
   searchMovie = 'search/movie',
   searchPerson = 'search/person',
   searchTv = 'search/tv',
