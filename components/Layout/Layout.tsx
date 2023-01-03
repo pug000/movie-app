@@ -19,7 +19,7 @@ function Layout({ title, children }: LayoutProps) {
     <>
       <Meta title={title} />
       <Header isHomePage={isHomePage} />
-      <StyledMain ishomepage={`${isHomePage}`}>{children}</StyledMain>
+      <StyledMain ishomepage={isHomePage}>{children}</StyledMain>
     </>
   );
 }
