@@ -1,7 +1,7 @@
 import { ResponseResultWithDates } from 'ts/interfaces';
-import imageUrl from 'utils/constants';
+import { imageUrl } from 'utils/constants';
 
-const mockedMovieResponse: ResponseResultWithDates = {
+const mockedMovieResponse: Omit<ResponseResultWithDates, 'sortBy' | 'title'> = {
   dates: {
     maximum: '2022-12-29',
     minimum: '2022-11-11',

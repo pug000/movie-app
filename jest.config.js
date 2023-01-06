@@ -11,6 +11,7 @@ const customJestConfig = {
     '^components/(.*)$': '<rootDir>/components/$1',
     '^pages/(.*)$': '<rootDir>/pages/$1',
     '^redux/(.*)$': '<rootDir>/redux/$1',
+    '^hooks/(.*)$': '<rootDir>/hooks/$1',
     '^styles/(.*)$': '<rootDir>/styles/$1',
     '^ts/(.*)$': '<rootDir>/ts/$1',
     '^utils/(.*)$': '<rootDir>/utils/$1',

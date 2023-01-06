@@ -10,6 +10,17 @@ import Home from 'pages/index';
 
 import { mockedMovieResponse, mockedPosterPath } from './constants';
 
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      route: '/',
+      pathname: '/',
+      query: {},
+      asPath: '/',
+    };
+  },
+}));
+
 const setUp = () =>
   render(
     <Provider store={store}>
@@ -20,10 +31,6 @@ const setUp = () =>
   );
 
 describe('Home page', () => {
-  beforeEach(() => {
-    fetchMock.resetMocks();
-  });
-
   test('should render Home page', async () => {
     fetchMock.mockResponse(JSON.stringify(mockedMovieResponse));
     setUp();
