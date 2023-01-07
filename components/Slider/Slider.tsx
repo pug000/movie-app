@@ -1,5 +1,5 @@
 import { memo, useRef } from 'react';
-import { Navigation } from 'swiper';
+import Swiper, { Navigation } from 'swiper';
 
 import { Movie, SortType } from 'ts/interfaces';
 
@@ -40,6 +40,19 @@ function Slider({
   const navigationPrevRef = useRef<HTMLButtonElement | null>(null);
   const navigationNextRef = useRef<HTMLButtonElement | null>(null);
 
+  const onBeforeInit: (swiper: Swiper) => void = ({ params, ...swiper }) => {
+    if (
+      typeof params.navigation !== 'boolean' &&
+      typeof params.navigation !== 'undefined'
+    ) {
+      const { navigation } = params;
+      navigation.prevEl = navigationPrevRef.current;
+      navigation.nextEl = navigationNextRef.current;
+      swiper.navigation.init();
+      swiper.navigation.update();
+    }
+  };
+
   return (
     <StyledSection>
       <StyledSectionHeader>
@@ -57,18 +70,7 @@ function Slider({
           modules={[Navigation]}
           slidesPerView={5}
           breakpoints={swiperBreakpoints}
-          onBeforeInit={({ params, ...swiper }) => {
-            if (
-              typeof params.navigation !== 'boolean' &&
-              typeof params.navigation !== 'undefined'
-            ) {
-              const { navigation } = params;
-              navigation.prevEl = navigationPrevRef.current;
-              navigation.nextEl = navigationNextRef.current;
-              swiper.navigation.init();
-              swiper.navigation.update();
-            }
-          }}
+          onBeforeInit={onBeforeInit}
         >
           {initialData.slice(0, 10).map((card) => (
             <StyledSwiperSlide key={card.id}>
