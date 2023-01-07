@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 import '@testing-library/jest-dom/extend-expect';
+import { enableFetchMocks } from 'jest-fetch-mock';
 
-require('jest-fetch-mock').enableMocks();
+enableFetchMocks();
