@@ -70,7 +70,7 @@ function Slider({
             }
           }}
         >
-          {initialData.slice(10).map((card) => (
+          {initialData.slice(0, 10).map((card) => (
             <StyledSwiperSlide key={card.id}>
               <Card card={card} routerPathById={`${routerPath}/${card.id}`} />
             </StyledSwiperSlide>
