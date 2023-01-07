@@ -31,6 +31,10 @@ const setUp = () =>
   );
 
 describe('Home page', () => {
+  beforeEach(() => {
+    fetchMock.resetMocks();
+  });
+
   test('should render Home page', async () => {
     fetchMock.mockResponse(JSON.stringify(mockedMovieResponse));
     setUp();

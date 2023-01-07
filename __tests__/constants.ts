@@ -353,9 +353,14 @@ const mockedMovieResponse: Omit<ResponseResultWithDates, 'sortBy' | 'title'> = {
   total_results: 1764,
 };
 
+const mockedMovieResponseWithTitle: Omit<ResponseResultWithDates, 'sortBy'> = {
+  ...mockedMovieResponse,
+  title: 'Latest movies',
+};
+
 const mockedPosterPath = `${imageUrl}w500${
   mockedMovieResponse.results[0].poster_path ??
   mockedMovieResponse.results[0].backdrop_path
 }?w=16px&q=75`;
 
-export { mockedMovieResponse, mockedPosterPath };
+export { mockedMovieResponse, mockedMovieResponseWithTitle, mockedPosterPath };
