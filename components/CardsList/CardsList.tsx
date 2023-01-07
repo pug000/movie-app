@@ -5,14 +5,14 @@ import Card from 'components/Card/Card';
 
 import { Movie } from 'ts/interfaces';
 
-import StyledGridContainer from './CardList.style';
+import StyledGridContainer from './CardsList.style';
 
 interface ItemListProps {
   itemList: Movie[];
   routerPath: string;
 }
 
-function CardList({ itemList, routerPath }: ItemListProps) {
+function CardsList({ itemList, routerPath }: ItemListProps) {
   return (
     <StyledGridContainer container>
       {itemList &&
@@ -25,4 +25,4 @@ function CardList({ itemList, routerPath }: ItemListProps) {
   );
 }
 
-export default memo(CardList);
+export default memo(CardsList);

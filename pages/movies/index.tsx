@@ -11,7 +11,7 @@ import {
 import useAppSelector from 'hooks/useAppSelector';
 
 import Layout from 'components/Layout/Layout';
-import CardList from 'components/CardList/CardList';
+import CardsList from 'components/CardsList/CardsList';
 
 import { RouterPaths } from 'ts/enums';
 
@@ -29,7 +29,7 @@ function Movies() {
       <StyledSection>
         <StyledTitle variant="h1">Movies</StyledTitle>
         {movies && (
-          <CardList itemList={movies?.results} routerPath={RouterPaths.movies} />
+          <CardsList itemList={movies?.results} routerPath={RouterPaths.movies} />
         )}
       </StyledSection>
     </Layout>
