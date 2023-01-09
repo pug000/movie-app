@@ -1,33 +1,28 @@
-import { ChangeEvent, memo } from 'react';
+import { useRouter } from 'next/router';
+import { memo } from 'react';
+
 import { StyledPagination, StyledGridContainer } from './CardsControl.style';
 
 interface CardsControlProps {
   currentPage: number;
-  totalPages?: number;
-  changePaginationPageOnClick: (event: ChangeEvent<unknown>, value: number) => void;
+  totalPages: number;
 }
 
-function CardsControl({
-  currentPage,
-  totalPages,
-  changePaginationPageOnClick,
-}: CardsControlProps) {
+function CardsControl({ currentPage, totalPages }: CardsControlProps) {
+  const { pathname, query, push } = useRouter();
+
   return (
     <StyledGridContainer container>
       <StyledPagination
         page={currentPage}
-        count={totalPages && totalPages < 50 ? totalPages : 50}
+        count={totalPages}
         shape="rounded"
         variant="outlined"
         color="primary"
-        onChange={changePaginationPageOnClick}
+        onChange={(_event, value) => push({ pathname, query: { ...query, page: value } })}
       />
     </StyledGridContainer>
   );
 }
-
-CardsControl.defaultProps = {
-  totalPages: 1,
-};
 
 export default memo(CardsControl);

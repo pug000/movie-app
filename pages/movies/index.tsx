@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
 
 import { wrapper } from 'redux/store';
 import {
@@ -9,8 +9,9 @@ import {
 } from 'redux/services/moviesApiSlice';
 import { getMovieSortType } from 'redux/selectors/movieSelectors';
 
+import { sorts } from 'utils/constants';
+
 import useAppSelector from 'hooks/useAppSelector';
-import usePaginationPage from 'hooks/usePaginationPage';
 
 import Layout from 'components/Layout/Layout';
 import CardsList from 'components/CardsList/CardsList';
@@ -20,34 +21,23 @@ import { RouterPaths } from 'ts/enums';
 
 import { StyledSection, StyledTitle } from './Movies.style';
 
-function Movies() {
+interface MoviesProps {
+  currentMoviesPage: number;
+  totalMoviesPages: number;
+}
+
+function Movies({ currentMoviesPage, totalMoviesPages }: MoviesProps) {
   const movieSortType = useAppSelector(getMovieSortType);
-  const {
-    currentPage: currentMoviesPage,
-    totalPages: totalMoviesPages,
-    setTotalPages: setTotalMoviesPages,
-    changePaginationPageOnClick,
-  } = usePaginationPage();
   const movies = useAppSelector((state) =>
     getDiscoverMoviesSelector(state, { page: currentMoviesPage, ...movieSortType })
   );
   useGetDiscoverMoviesQuery({ page: currentMoviesPage, ...movieSortType });
 
-  useEffect(() => {
-    if (movies && movies.total_pages !== totalMoviesPages) {
-      setTotalMoviesPages(movies.total_pages);
-    }
-  }, [movies, setTotalMoviesPages, totalMoviesPages]);
-
   return (
     <Layout title="Movies">
       <StyledSection>
         <StyledTitle variant="h1">Movies</StyledTitle>
-        <CardsControl
-          currentPage={currentMoviesPage}
-          totalPages={totalMoviesPages}
-          changePaginationPageOnClick={changePaginationPageOnClick}
-        />
+        <CardsControl currentPage={currentMoviesPage} totalPages={totalMoviesPages} />
         {movies && (
           <CardsList itemList={movies?.results} routerPath={RouterPaths.movies} />
         )}
@@ -59,15 +49,39 @@ function Movies() {
 export default memo(Movies);
 
 export const getServerSideProps = wrapper.getServerSideProps(
-  ({ getState, dispatch }) =>
-    async () => {
-      const { movieSortType } = getState().movie;
-      dispatch(getDiscoverMovies.initiate({ page: 1, ...movieSortType }));
+  ({ dispatch }) =>
+    async ({ query }) => {
+      const { page, sortBy } = query;
+      const numberPage = Number(page);
+      const sortType = sorts.find((sort) => sort.type === sortBy);
+
+      if (!numberPage && !sortType) {
+        return {
+          redirect: {
+            destination: '/movies?page=1&sortBy=primary_release_date.desc',
+            permanent: false,
+          },
+        };
+      }
+
+      if (!numberPage || !sortType) {
+        return {
+          notFound: true,
+        };
+      }
+
+      const { data: movies } = await dispatch(
+        getDiscoverMovies.initiate({ page: numberPage, ...sortType })
+      );
 
       await Promise.all(dispatch(getRunningQueriesThunk()));
 
       return {
-        props: {},
+        props: {
+          currentMoviesPage: numberPage,
+          totalMoviesPages:
+            movies?.total_pages && movies.total_pages < 50 ? movies.total_pages : 50,
+        },
       };
     }
 );

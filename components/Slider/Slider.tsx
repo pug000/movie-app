@@ -27,16 +27,9 @@ interface SliderProps {
   routerPath: string;
   sliderTitle?: string;
   sortBy: SortType;
-  setSortTypeOnClick: (sortType: SortType) => void;
 }
 
-function Slider({
-  initialData,
-  routerPath,
-  sliderTitle,
-  sortBy,
-  setSortTypeOnClick,
-}: SliderProps) {
+function Slider({ initialData, routerPath, sliderTitle, sortBy }: SliderProps) {
   const navigationPrevRef = useRef<HTMLButtonElement | null>(null);
   const navigationNextRef = useRef<HTMLButtonElement | null>(null);
 
@@ -57,7 +50,10 @@ function Slider({
     <StyledSection>
       <StyledSectionHeader>
         <StyledTitle variant="h2">{sliderTitle}</StyledTitle>
-        <StyledLink href={routerPath} onClick={() => setSortTypeOnClick(sortBy)}>
+        <StyledLink
+          href={{ pathname: routerPath, query: { page: 1, sortBy: sortBy.type } }}
+          // onClick={() => setSortTypeOnClick(sortBy)}
+        >
           View all
         </StyledLink>
       </StyledSectionHeader>
