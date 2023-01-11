@@ -16,7 +16,7 @@ const customJestConfig = {
     '^ts/(.*)$': '<rootDir>/ts/$1',
     '^utils/(.*)$': '<rootDir>/utils/$1',
   },
-  modulePathIgnorePatterns: ['<rootDir>/__tests__/constants'],
+  modulePathIgnorePatterns: ['<rootDir>/__tests__/test-utils/'],
   moduleDirectories: ['node_modules'],
   testEnvironment: 'jest-environment-jsdom',
 };

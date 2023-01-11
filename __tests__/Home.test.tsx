@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
 import { Provider } from 'react-redux';
+import { NextRouter } from 'next/router';
 import fetchMock from 'jest-fetch-mock';
 
 import store from 'redux/store';
@@ -8,18 +9,8 @@ import defaultTheme from 'styles/theme';
 
 import Home from 'pages/index';
 
-import { mockedMovieResponse, mockedPosterPath } from './constants';
-
-jest.mock('next/router', () => ({
-  useRouter() {
-    return {
-      route: '/',
-      pathname: '/',
-      query: {},
-      asPath: '/',
-    };
-  },
-}));
+import { mockedMovieResponse, mockedPosterPath } from './test-utils/constants';
+import mockNextRouter from './test-utils/createMockRouter';
 
 const setUp = () =>
   render(
@@ -31,7 +22,13 @@ const setUp = () =>
   );
 
 describe('Home page', () => {
+  let mockRouter: NextRouter;
   beforeEach(() => {
+    mockRouter = mockNextRouter({
+      pathname: '/',
+      asPath: '/',
+      query: {},
+    });
     fetchMock.resetMocks();
   });
 

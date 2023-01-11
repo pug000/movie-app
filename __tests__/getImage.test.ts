@@ -1,5 +1,5 @@
 import { getImage } from 'utils/functions';
-import { mockedMovieResponse } from './constants';
+import { mockedMovieResponse } from './test-utils/constants';
 
 const getExpectedImage = (width: string) =>
   `https://image.tmdb.org/t/p/${width}/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg`;
