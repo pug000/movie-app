@@ -23,6 +23,7 @@ const setUp = () =>
 
 describe('Home page', () => {
   let mockRouter: NextRouter;
+
   beforeEach(() => {
     mockRouter = mockNextRouter({
       pathname: '/',
@@ -40,5 +41,6 @@ describe('Home page', () => {
     expect(screen.getByRole('link', { name: /enter/i })).toBeInTheDocument();
     expect(posters).toHaveLength(60);
     expect(posters[0].src).toBe(mockedPosterPath);
+    expect(mockRouter.pathname).toBe('/');
   });
 });
