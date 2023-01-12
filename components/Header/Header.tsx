@@ -13,14 +13,15 @@ import {
 
 interface HeaderProps {
   isHomePage: boolean;
+  isNotFoundPage: boolean;
 }
 
-function Header({ isHomePage }: HeaderProps) {
+function Header({ isHomePage, isNotFoundPage }: HeaderProps) {
   return (
     <StyledHeader ishomepage={`${isHomePage}`}>
       <StyledToolbar>
         <StyledLink href={RouterPaths.home}>Movie App</StyledLink>
-        <SearchBar />
+        {!isNotFoundPage && <SearchBar />}
       </StyledToolbar>
       {isHomePage && <HeaderBackground />}
     </StyledHeader>

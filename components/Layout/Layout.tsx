@@ -14,11 +14,12 @@ interface LayoutProps {
 function Layout({ title, children }: LayoutProps) {
   const { pathname } = useRouter();
   const isHomePage = pathname === '/';
+  const isNotFoundPage = pathname === '/404';
 
   return (
     <>
       <Meta title={title} />
-      <Header isHomePage={isHomePage} />
+      <Header isHomePage={isHomePage} isNotFoundPage={isNotFoundPage} />
       <StyledMain ishomepage={isHomePage}>{children}</StyledMain>
     </>
   );
