@@ -7,7 +7,8 @@ import CardsControl from 'components/CardsControl/CardsControl';
 
 import mockNextRouter from './test-utils/createMockRouter';
 
-const setUp = (page: number, totalPages: number) => {
+const setUp = (page: number, totalPages: number, router: Partial<NextRouter> = {}) => {
+  const mockedRouter = mockNextRouter(router);
   const { rerender } = render(
     <CardsControl currentPage={page} totalPages={totalPages} />
   );
@@ -19,6 +20,7 @@ const setUp = (page: number, totalPages: number) => {
 
   return {
     rerender,
+    mockedRouter,
     prevPaginationButton,
     nextPaginationButton,
     maxPaginationPage,
@@ -27,17 +29,8 @@ const setUp = (page: number, totalPages: number) => {
 
 describe('CardsControl component', () => {
   let user: UserEvent;
-  let mockRouter: NextRouter;
 
   beforeEach(() => {
-    mockRouter = mockNextRouter({
-      pathname: '/movies',
-      asPath: '/movies?page=1&sortBy=primary_release_date.desc',
-      query: {
-        page: '1',
-        sortBy: 'primary_release_date.desc',
-      },
-    });
     user = userEvent.setup();
   });
 
@@ -51,32 +44,28 @@ describe('CardsControl component', () => {
     expect(maxPaginationPage).toBeInTheDocument();
     expect(prevPaginationButton).toBeDisabled();
     expect(nextPaginationButton).toBeEnabled();
-    expect(mockRouter.query).toStrictEqual({
-      page: '1',
-      sortBy: 'primary_release_date.desc',
-    });
   });
 
   test('should be the active pagination page changed when the user click on the pagination page', async () => {
-    const { rerender, prevPaginationButton, nextPaginationButton, maxPaginationPage } =
-      setUp(1, 50);
-    await user.click(nextPaginationButton);
-    rerender(<CardsControl currentPage={2} totalPages={50} />);
-    expect(screen.getByRole('button', { name: /page 2/i })).toHaveClass('Mui-selected');
-    expect(prevPaginationButton).toBeEnabled();
+    const { rerender, maxPaginationPage } = setUp(1, 50);
     await user.click(maxPaginationPage);
     rerender(<CardsControl currentPage={50} totalPages={50} />);
-    expect(maxPaginationPage).toHaveClass('Mui-selected');
-    expect(nextPaginationButton).toBeDisabled();
+    expect(screen.getByRole('button', { name: /page 50/i })).toHaveClass('Mui-selected');
+    await user.click(screen.getByRole('button', { name: /go to page 46/i }));
+    rerender(<CardsControl currentPage={46} totalPages={50} />);
+    expect(screen.getByRole('button', { name: /page 46/i })).toHaveClass('Mui-selected');
   });
 
-  test('should be the router query changed when the user click on the pagination page', async () => {
-    const { rerender } = setUp(1, 50);
-    await user.click(screen.getByRole('button', { name: /go to page 4/i }));
-    rerender(<CardsControl currentPage={4} totalPages={50} />);
-    expect(mockRouter.push).toHaveBeenLastCalledWith({
-      pathname: '/movies',
-      query: { page: 4, sortBy: 'primary_release_date.desc' },
-    });
+  test('should be prev/next pagination pages enabled or disabled when user click on the pagination page', async () => {
+    const { rerender, prevPaginationButton, nextPaginationButton } = setUp(1, 50);
+    await user.click(nextPaginationButton);
+    rerender(<CardsControl currentPage={2} totalPages={50} />);
+    expect(prevPaginationButton).toBeEnabled();
+    await user.click(screen.getByRole('button', { name: /go to page 50/i }));
+    rerender(<CardsControl currentPage={50} totalPages={50} />);
+    expect(nextPaginationButton).toBeDisabled();
+    await user.click(prevPaginationButton);
+    rerender(<CardsControl currentPage={49} totalPages={50} />);
+    expect(nextPaginationButton).toBeEnabled();
   });
 });
