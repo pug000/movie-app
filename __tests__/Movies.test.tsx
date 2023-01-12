@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { UserEvent } from '@testing-library/user-event/dist/types/setup/setup';
 import { NextRouter } from 'next/router';
@@ -55,11 +55,13 @@ describe('Movies page', () => {
   test('should be the router query changed when the user click on the pagination page', async () => {
     const { rerender, mockedRouter } = setUp(1, 50);
     await user.click(screen.getByRole('button', { name: /go to page 4/i }));
-    rerender(
-      <Provider store={store}>
-        <Movies currentMoviesPage={4} totalMoviesPages={50} />
-      </Provider>
-    );
+    await act(() => {
+      rerender(
+        <Provider store={store}>
+          <Movies currentMoviesPage={4} totalMoviesPages={50} />
+        </Provider>
+      );
+    });
     expect(mockedRouter.push).toHaveBeenLastCalledWith({
       pathname: '/movies',
       query: { page: 4, sortBy: 'primary_release_date.desc' },
