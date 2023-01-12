@@ -52,7 +52,6 @@ function Slider({ initialData, routerPath, sliderTitle, sortBy }: SliderProps) {
         <StyledTitle variant="h2">{sliderTitle}</StyledTitle>
         <StyledLink
           href={{ pathname: routerPath, query: { page: 1, sortBy: sortBy.type } }}
-          // onClick={() => setSortTypeOnClick(sortBy)}
         >
           View all
         </StyledLink>
