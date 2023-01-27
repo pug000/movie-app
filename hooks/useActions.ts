@@ -1,16 +1,12 @@
-import { bindActionCreators } from '@reduxjs/toolkit';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { ActionCreatorsMapObject, bindActionCreators } from '@reduxjs/toolkit';
+import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
-import movieSlice from 'redux/slices/movieSlice';
-
-const allActions = {
-  ...movieSlice.actions,
-};
-
-const useActions = () => {
+const useActions = <A extends ActionCreatorsMapObject>(actions: A) => {
   const dispatch = useDispatch();
 
-  return bindActionCreators(allActions, dispatch);
+  return useMemo(() => bindActionCreators(actions, dispatch), []);
 };
 
 export default useActions;
