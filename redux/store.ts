@@ -1,16 +1,28 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { createWrapper } from 'next-redux-wrapper';
+import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 
 import apiSlice from './services/apiSlice';
 import { moviesReducer, moviesName } from './slices/moviesSlice';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-const reducer = combineReducers({
+const combinedReducer = combineReducers({
   [moviesName]: moviesReducer,
 
   [apiSlice.reducerPath]: apiSlice.reducer,
 });
+
+const reducer: typeof combinedReducer = (state, action) => {
+  if (action.type === HYDRATE) {
+    const nextState = {
+      ...state,
+      ...action.payload,
+    };
+    return nextState;
+  }
+
+  return combinedReducer(state, action);
+};
 
 const store = configureStore({
   reducer,
