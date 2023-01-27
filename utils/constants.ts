@@ -2,9 +2,7 @@ import { SwiperOptions } from 'swiper';
 import { Endpoints } from 'ts/enums';
 import { SortType } from 'ts/interfaces';
 
-const nextWeekReleaseDate = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
-  .toISOString()
-  .slice(0, -14);
+const todayDate = new Date().toISOString().slice(0, -14);
 
 const minReleaseDate = new Date(new Date().setFullYear(new Date().getFullYear() - 40))
   .toISOString()
@@ -47,15 +45,15 @@ const endpoints = [
 const sorts: SortType[] = [
   {
     type: 'primary_release_date.desc',
-    releaseDate: nextWeekReleaseDate,
+    releaseDate: todayDate,
   },
   {
     type: 'vote_count.desc',
-    releaseDate: nextWeekReleaseDate,
+    releaseDate: todayDate,
   },
   {
     type: 'popularity.desc',
-    releaseDate: nextWeekReleaseDate,
+    releaseDate: todayDate,
   },
   {
     type: 'primary_release_date.desc',
@@ -66,7 +64,7 @@ const sorts: SortType[] = [
 export {
   imageUrl,
   swiperBreakpoints,
-  nextWeekReleaseDate,
+  todayDate,
   minReleaseDate,
   maxReleaseDate,
   titles,

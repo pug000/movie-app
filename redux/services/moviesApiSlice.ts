@@ -73,6 +73,7 @@ const moviesApiSlice = apiSlice.injectEndpoints({
       },
     }),
   }),
+  overrideExisting: true,
 });
 
 export const {
