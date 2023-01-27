@@ -4,9 +4,8 @@ import { useRouter } from 'next/router';
 
 import { wrapper } from 'redux/store';
 import {
-  getDiscoverMovies,
-  getDiscoverMoviesSelector,
   getRunningQueriesThunk,
+  moviesApiEndpoints,
   useGetDiscoverMoviesQuery,
 } from 'redux/services/moviesApiSlice';
 import { moviesActions } from 'redux/slices/moviesSlice';
@@ -31,10 +30,10 @@ function Movies() {
   const currentMoviesPage = useAppSelector(moviesSelectors.getCurrentMoviesPages);
   const totalMoviesPages = useAppSelector(moviesSelectors.getTotalMoviesPages);
   const moviesSortType = useAppSelector(moviesSelectors.getMoviesSortType);
-  const movies = useAppSelector((state) =>
-    getDiscoverMoviesSelector(state, { page: currentMoviesPage, ...moviesSortType })
-  );
-  useGetDiscoverMoviesQuery({ page: currentMoviesPage, ...moviesSortType });
+  const { data: movies } = useGetDiscoverMoviesQuery({
+    page: currentMoviesPage,
+    ...moviesSortType,
+  });
 
   useEffect(() => {
     push(
@@ -93,7 +92,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       }
 
       const { data: movies } = await dispatch(
-        getDiscoverMovies.initiate({ page: numberPage, ...sortType })
+        moviesApiEndpoints.getDiscoverMovies.initiate({ page: numberPage, ...sortType })
       );
       dispatch(moviesActions.setCurrentPage(numberPage));
       dispatch(moviesActions.setTotalMoviesPages(movies?.total_pages));

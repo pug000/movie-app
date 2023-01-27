@@ -1,8 +1,5 @@
-import { createSelector } from '@reduxjs/toolkit';
 import { QueryReturnValue } from '@reduxjs/toolkit/dist/query/baseQueryTypes';
 import { FetchBaseQueryError, FetchBaseQueryMeta } from '@reduxjs/toolkit/query';
-
-import { RootState } from 'redux/store';
 
 import { splitArray, addFetchOptions } from 'utils/functions';
 import { endpoints, minReleaseDate, sorts, titles } from 'utils/constants';
@@ -85,23 +82,4 @@ export const {
   util: { getRunningQueriesThunk },
 } = moviesApiSlice;
 
-export const { getMoviePosters, getAllMovies, getDiscoverMovies } =
-  moviesApiSlice.endpoints;
-
-const getMoviePostersSelector = createSelector(
-  (state: RootState) => getMoviePosters.select(null)(state),
-  ({ data }) => data ?? []
-);
-
-const getAllMoviesSelector = createSelector(
-  (state: RootState) => getAllMovies.select(null)(state),
-  ({ data }) => data ?? []
-);
-
-const getDiscoverMoviesSelector = createSelector(
-  (state: RootState, params: DiscoverMoviesArguments) =>
-    getDiscoverMovies.select(params)(state),
-  ({ data }) => data
-);
-
-export { getMoviePostersSelector, getAllMoviesSelector, getDiscoverMoviesSelector };
+export const { endpoints: moviesApiEndpoints } = moviesApiSlice;

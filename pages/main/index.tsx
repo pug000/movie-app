@@ -3,13 +3,10 @@ import { v4 } from 'uuid';
 
 import { wrapper } from 'redux/store';
 import {
-  getAllMovies,
-  getAllMoviesSelector,
+  moviesApiEndpoints,
   getRunningQueriesThunk,
   useGetAllMoviesQuery,
 } from 'redux/services/moviesApiSlice';
-
-import useAppSelector from 'hooks/useAppSelector';
 
 import Layout from 'components/Layout/Layout';
 import Slider from 'components/Slider/Slider';
@@ -17,12 +14,11 @@ import Slider from 'components/Slider/Slider';
 import { RouterPaths } from 'ts/enums';
 
 function Main() {
-  const movies = useAppSelector(getAllMoviesSelector);
-  useGetAllMoviesQuery(null);
+  const { data: movies } = useGetAllMoviesQuery(null);
 
   return (
     <Layout title="Main">
-      {movies.length > 0 &&
+      {movies &&
         movies.map(({ results, title, sortBy }) => (
           <Slider
             key={v4()}
@@ -36,12 +32,10 @@ function Main() {
   );
 }
 
-export default memo(Main);
-
 export const getServerSideProps = wrapper.getServerSideProps(
   ({ dispatch }) =>
     async () => {
-      dispatch(getAllMovies.initiate(null));
+      dispatch(moviesApiEndpoints.getAllMovies.initiate(null));
 
       await Promise.all(dispatch(getRunningQueriesThunk()));
 
@@ -50,3 +44,5 @@ export const getServerSideProps = wrapper.getServerSideProps(
       };
     }
 );
+
+export default memo(Main);

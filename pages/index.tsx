@@ -3,14 +3,11 @@ import Link from 'next/link';
 import { v4 } from 'uuid';
 
 import {
-  getMoviePosters,
-  getMoviePostersSelector,
   getRunningQueriesThunk,
+  moviesApiEndpoints,
   useGetMoviePostersQuery,
 } from 'redux/services/moviesApiSlice';
 import { wrapper } from 'redux/store';
-
-import useAppSelector from 'hooks/useAppSelector';
 
 import { imageUrl } from 'utils/constants';
 import { loadImage } from 'utils/functions';
@@ -33,32 +30,32 @@ import {
 } from './Home.style';
 
 function Home() {
-  const moviePosters = useAppSelector(getMoviePostersSelector);
-  useGetMoviePostersQuery(null);
+  const { data: moviePosters } = useGetMoviePostersQuery(null);
 
   return (
     <Layout title="Home">
       <StyledPosterSection>
         <StyledWrapper>
           <StyledContainer>
-            {moviePosters.map((chunk) => (
-              <StyledStack direction="row" key={v4()}>
-                {chunk.map(
-                  ({ id, poster_path, backdrop_path, title, original_title }) => (
-                    <ImageWrapper key={id}>
-                      <StyledImage
-                        loader={loadImage}
-                        src={`${imageUrl}w500${poster_path ?? backdrop_path}`}
-                        priority
-                        alt={title ?? original_title}
-                        width={0}
-                        height={0}
-                      />
-                    </ImageWrapper>
-                  )
-                )}
-              </StyledStack>
-            ))}
+            {moviePosters &&
+              moviePosters.map((chunk) => (
+                <StyledStack direction="row" key={v4()}>
+                  {chunk.map(
+                    ({ id, poster_path, backdrop_path, title, original_title }) => (
+                      <ImageWrapper key={id}>
+                        <StyledImage
+                          loader={loadImage}
+                          src={`${imageUrl}w500${poster_path ?? backdrop_path}`}
+                          priority
+                          alt={title ?? original_title}
+                          width={0}
+                          height={0}
+                        />
+                      </ImageWrapper>
+                    )
+                  )}
+                </StyledStack>
+              ))}
             <PosterBackground />
           </StyledContainer>
           <StyledTitleContainer>
@@ -78,12 +75,10 @@ function Home() {
   );
 }
 
-export default memo(Home);
-
 export const getServerSideProps = wrapper.getServerSideProps(
   ({ dispatch }) =>
     async () => {
-      dispatch(getMoviePosters.initiate(null));
+      dispatch(moviesApiEndpoints.getMoviePosters.initiate(null));
 
       await Promise.all(dispatch(getRunningQueriesThunk()));
 
@@ -92,3 +87,5 @@ export const getServerSideProps = wrapper.getServerSideProps(
       };
     }
 );
+
+export default memo(Home);
