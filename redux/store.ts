@@ -2,12 +2,12 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
 
 import apiSlice from './services/apiSlice';
-import movieSlice from './slices/movieSlice';
+import { moviesReducer, moviesName } from './slices/moviesSlice';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
 const reducer = combineReducers({
-  movie: movieSlice.reducer,
+  [moviesName]: moviesReducer,
 
   [apiSlice.reducerPath]: apiSlice.reducer,
 });
