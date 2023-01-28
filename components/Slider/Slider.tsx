@@ -4,6 +4,7 @@ import Swiper, { Navigation } from 'swiper';
 import { Movie, SortType } from 'ts/interfaces';
 
 import { swiperBreakpoints } from 'utils/constants';
+import { montserrat, openSans } from 'utils/fonts';
 
 import Card from 'components/Card/Card';
 
@@ -49,9 +50,12 @@ function Slider({ initialData, routerPath, sliderTitle, sortBy }: SliderProps) {
   return (
     <StyledSection>
       <StyledSectionHeader>
-        <StyledTitle variant="h2">{sliderTitle}</StyledTitle>
+        <StyledTitle variant="h2" sx={montserrat.style}>
+          {sliderTitle}
+        </StyledTitle>
         <StyledLink
           href={{ pathname: routerPath, query: { page: 1, sortBy: sortBy.type } }}
+          sx={openSans.style}
         >
           View all
         </StyledLink>

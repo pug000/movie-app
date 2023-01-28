@@ -1,4 +1,5 @@
 import { ChangeEvent, memo } from 'react';
+import { openSans } from 'utils/fonts';
 
 import { StyledPagination, StyledGridContainer } from './CardsControl.style';
 
@@ -18,6 +19,7 @@ function CardsControl({ currentPage, totalPages, changePage }: CardsControlProps
         variant="outlined"
         color="primary"
         onChange={changePage}
+        sx={openSans.style}
       />
     </StyledGridContainer>
   );

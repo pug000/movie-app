@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import Link from 'next/link';
 import { v4 } from 'uuid';
+import { montserrat, openSans } from 'utils/fonts';
 
 import {
   getRunningQueriesThunk,
@@ -59,12 +60,15 @@ function Home() {
             <PosterBackground />
           </StyledContainer>
           <StyledTitleContainer>
-            <Title variant="h1">Movie App</Title>
+            <Title variant="h1" sx={montserrat.style}>
+              Movie App
+            </Title>
             <StyledButton
               variant="contained"
               size="large"
               LinkComponent={Link}
               href={RouterPaths.main}
+              sx={openSans.style}
             >
               Enter
             </StyledButton>

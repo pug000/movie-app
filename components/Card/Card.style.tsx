@@ -81,7 +81,7 @@ const StyledLink = styled(Link)(({ theme }) => ({
 const StyledButton = styled(Button)(({ theme }) => ({
   backgroundColor: 'hsla(0,0%,100%,.08)',
   color: theme.palette.primary.main,
-  fontFamily: theme.fonts.title,
+  fontWeight: theme.typography.h1.fontWeight,
   padding: '0 0.75rem',
   borderRadius: '0.25rem',
   lineHeight: '1.75rem',

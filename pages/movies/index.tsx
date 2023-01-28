@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { ChangeEvent, memo, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { montserrat } from 'utils/fonts';
 
 import { wrapper } from 'redux/store';
 import {
@@ -55,7 +56,9 @@ function Movies() {
   return (
     <Layout title="Movies">
       <StyledSection>
-        <StyledTitle variant="h1">Movies</StyledTitle>
+        <StyledTitle variant="h1" sx={montserrat.style}>
+          Movies
+        </StyledTitle>
         <CardsControl
           currentPage={currentMoviesPage}
           totalPages={totalMoviesPages}

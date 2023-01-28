@@ -22,8 +22,6 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 400;
     font-size: 1.13rem;
     background-color: ${defaultTheme.palette.background.black};
     color: ${defaultTheme.palette.text.black};

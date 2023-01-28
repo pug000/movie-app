@@ -2,6 +2,7 @@ import { memo } from 'react';
 import Link from 'next/link';
 
 import { getImage, loadImage } from 'utils/functions';
+import { montserrat, openSans } from 'utils/fonts';
 
 import { Movie } from 'ts/interfaces';
 
@@ -42,7 +43,7 @@ function Card({ card, routerPathById }: CardProps) {
       </Link>
       <StyledItemInfo>
         <StyledRatingWrapper>
-          <StyledRating>
+          <StyledRating sx={openSans.style}>
             <StyledStarIcon />
             {card.vote_average}
           </StyledRating>
@@ -53,8 +54,12 @@ function Card({ card, routerPathById }: CardProps) {
             <StyledInfoIcon />
           </StyledIconButton>
         </StyledRatingWrapper>
-        <StyledLink href={routerPathById}>{card.title}</StyledLink>
-        <StyledButton startIcon={<StyledAddIcon />}>Watchlist</StyledButton>
+        <StyledLink href={routerPathById} sx={openSans.style}>
+          {card.title}
+        </StyledLink>
+        <StyledButton startIcon={<StyledAddIcon />} sx={montserrat.style}>
+          Watchlist
+        </StyledButton>
       </StyledItemInfo>
     </StyledItem>
   );
