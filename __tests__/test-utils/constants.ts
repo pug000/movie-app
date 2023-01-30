@@ -1,4 +1,4 @@
-import { ResponseResultWithDates } from 'ts/interfaces';
+import type { ResponseResultWithDates } from 'ts/interfaces';
 import { imageUrl } from 'utils/constants';
 
 const mockedMovieResponse: Omit<ResponseResultWithDates, 'sortBy' | 'title'> = {

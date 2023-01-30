@@ -1,11 +1,16 @@
 import { QueryReturnValue } from '@reduxjs/toolkit/dist/query/baseQueryTypes';
-import { FetchBaseQueryError, FetchBaseQueryMeta } from '@reduxjs/toolkit/query';
+import type { FetchBaseQueryError, FetchBaseQueryMeta } from '@reduxjs/toolkit/query';
 
 import { splitArray, addFetchOptions } from 'utils/functions';
 import { endpoints, minReleaseDate, sorts, titles } from 'utils/constants';
 
 import { Endpoints } from 'ts/enums';
-import { Movie, ResponseResult, ResponseResultWithDates, SortType } from 'ts/interfaces';
+import type {
+  Movie,
+  ResponseResult,
+  ResponseResultWithDates,
+  SortType,
+} from 'ts/interfaces';
 
 import apiSlice from './apiSlice';
 

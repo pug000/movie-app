@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { ActionCreatorsMapObject, bindActionCreators } from '@reduxjs/toolkit';
+import { bindActionCreators } from '@reduxjs/toolkit';
+import type { ActionCreatorsMapObject } from '@reduxjs/toolkit';
 import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 

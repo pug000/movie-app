@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { getImage, loadImage } from 'utils/functions';
 import { montserrat, openSans } from 'utils/fonts';
 
-import { Movie } from 'ts/interfaces';
+import type { Movie } from 'ts/interfaces';
 
 import {
   StyledStarIcon,

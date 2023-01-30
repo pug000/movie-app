@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { sorts } from 'utils/constants';
 
-import { SortType } from 'ts/interfaces';
+import type { SortType } from 'ts/interfaces';
 
 interface MoviesState {
   moviesSortType: SortType;

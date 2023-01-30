@@ -1,4 +1,4 @@
-import { ImageLoaderProps } from 'next/image';
+import type { ImageLoaderProps } from 'next/image';
 import { Methods } from 'ts/enums';
 import { imageUrl } from './constants';
 

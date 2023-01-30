@@ -1,7 +1,7 @@
-import { SelectChangeEvent } from '@mui/material/Select';
 import { memo } from 'react';
+import type { SelectChangeEvent } from '@mui/material';
 
-import { SelectOption } from 'ts/interfaces';
+import type { SelectOption } from 'ts/interfaces';
 import { openSans } from 'utils/fonts';
 
 import { StyledFormControl, StyledSelect, SelectItem, menuProps } from './Select.style';

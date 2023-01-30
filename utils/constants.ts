@@ -1,6 +1,6 @@
-import { SwiperOptions } from 'swiper';
+import type { SwiperOptions } from 'swiper';
 import { Endpoints } from 'ts/enums';
-import { SelectOption, SortType } from 'ts/interfaces';
+import type { SelectOption, SortType } from 'ts/interfaces';
 
 const todayDate = new Date().toISOString().slice(0, -14);
 

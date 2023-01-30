@@ -1,4 +1,4 @@
-import { RootState } from 'redux/store';
+import type { RootState } from 'redux/store';
 
 const getCurrentMoviesPages = (state: RootState) => state.movies.currentMoviesPage;
 

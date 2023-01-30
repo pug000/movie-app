@@ -1,8 +1,8 @@
-import { Component, ReactNode } from 'react';
+import React, { Component } from 'react';
 import Router from 'next/router';
 
 interface ErrorBoundaryProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 interface ErrorBoundaryState {

@@ -1,7 +1,8 @@
 import { memo, useRef } from 'react';
-import Swiper, { Navigation } from 'swiper';
+import { Navigation } from 'swiper';
+import type { Swiper } from 'swiper';
 
-import { Movie, SortType } from 'ts/interfaces';
+import type { Movie, SortType } from 'ts/interfaces';
 
 import { swiperBreakpoints } from 'utils/constants';
 import { montserrat, openSans } from 'utils/fonts';

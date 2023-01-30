@@ -3,7 +3,7 @@ import { Grid } from '@mui/material';
 
 import Card from 'components/Card/Card';
 
-import { Movie } from 'ts/interfaces';
+import type { Movie } from 'ts/interfaces';
 
 import StyledGridContainer from './CardsList.style';
 
