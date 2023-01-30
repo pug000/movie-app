@@ -2,6 +2,7 @@
 import { ChangeEvent, memo, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { montserrat } from 'utils/fonts';
+import { SelectChangeEvent } from '@mui/material/Select';
 
 import { wrapper } from 'redux/store';
 import {
@@ -26,8 +27,8 @@ import { RouterPaths } from 'ts/enums';
 import { StyledSection, StyledTitle } from './Movies.style';
 
 function Movies() {
-  const { pathname, query, push } = useRouter();
-  const { setCurrentPage } = useActions(moviesActions);
+  const { pathname, push } = useRouter();
+  const { setCurrentPage, setMoviesSortType } = useActions(moviesActions);
   const currentMoviesPage = useAppSelector(moviesSelectors.getCurrentMoviesPages);
   const totalMoviesPages = useAppSelector(moviesSelectors.getTotalMoviesPages);
   const moviesSortType = useAppSelector(moviesSelectors.getMoviesSortType);
@@ -40,17 +41,21 @@ function Movies() {
     push(
       {
         pathname,
-        query: { ...query, page: currentMoviesPage },
+        query: { page: currentMoviesPage, sortBy: moviesSortType.type },
       },
       undefined,
       {
         shallow: true,
       }
     );
-  }, [currentMoviesPage]);
+  }, [currentMoviesPage, moviesSortType]);
 
   const changePage = useCallback((_event: ChangeEvent<unknown>, page: number) => {
     setCurrentPage(page);
+  }, []);
+
+  const changeSortType = useCallback(({ target }: SelectChangeEvent<unknown>) => {
+    setMoviesSortType({ value: target.value as string, sorts });
   }, []);
 
   return (
@@ -62,7 +67,9 @@ function Movies() {
         <CardsControl
           currentPage={currentMoviesPage}
           totalPages={totalMoviesPages}
+          selectedValue={moviesSortType.type}
           changePage={changePage}
+          changeSortType={changeSortType}
         />
         {movies && (
           <CardsList itemList={movies?.results} routerPath={RouterPaths.movies} />
@@ -97,6 +104,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       const { data: movies } = await dispatch(
         moviesApiEndpoints.getDiscoverMovies.initiate({ page: numberPage, ...sortType })
       );
+      dispatch(moviesActions.setMoviesSortType({ value: sortType, sorts }));
       dispatch(moviesActions.setCurrentPage(numberPage));
       dispatch(moviesActions.setTotalMoviesPages(movies?.total_pages));
       await Promise.all(dispatch(getRunningQueriesThunk()));

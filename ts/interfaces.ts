@@ -27,6 +27,11 @@ interface SortType {
   releaseDate: string;
 }
 
+interface SelectOption {
+  text: string;
+  value: string;
+}
+
 interface ResponseResultWithDates extends ResponseResult {
   dates?: {
     minimum: string;
@@ -36,4 +41,4 @@ interface ResponseResultWithDates extends ResponseResult {
   sortBy: SortType;
 }
 
-export type { ResponseResult, ResponseResultWithDates, Movie, SortType };
+export type { ResponseResult, ResponseResultWithDates, Movie, SortType, SelectOption };

@@ -10,6 +10,11 @@ interface MoviesState {
   totalMoviesPages: number;
 }
 
+interface MoviesSortType {
+  value: string | SortType;
+  sorts: SortType[];
+}
+
 const initialState: MoviesState = {
   moviesSortType: sorts[0],
   currentMoviesPage: 1,
@@ -20,8 +25,19 @@ const moviesSlice = createSlice({
   name: 'movies',
   initialState,
   reducers: {
-    setMoviesSortType(state, { payload }: PayloadAction<SortType>) {
-      state.moviesSortType = payload;
+    setMoviesSortType(state, { payload }: PayloadAction<MoviesSortType>) {
+      if (typeof payload.value === 'string') {
+        const sortType = payload.sorts.find(({ type }) => type === payload.value);
+
+        if (!sortType) {
+          const [defaultSortType] = payload.sorts;
+          state.moviesSortType = defaultSortType;
+        } else {
+          state.moviesSortType = sortType;
+        }
+      } else {
+        state.moviesSortType = payload.value;
+      }
     },
 
     setCurrentPage(state, { payload }: PayloadAction<number>) {

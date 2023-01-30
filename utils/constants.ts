@@ -1,6 +1,6 @@
 import { SwiperOptions } from 'swiper';
 import { Endpoints } from 'ts/enums';
-import { SortType } from 'ts/interfaces';
+import { SelectOption, SortType } from 'ts/interfaces';
 
 const todayDate = new Date().toISOString().slice(0, -14);
 
@@ -59,6 +59,45 @@ const sorts: SortType[] = [
     type: 'primary_release_date.desc',
     releaseDate: maxReleaseDate,
   },
+  {
+    type: 'primary_release_date.asc',
+    releaseDate: todayDate,
+  },
+  {
+    type: 'vote_count.asc',
+    releaseDate: todayDate,
+  },
+  {
+    type: 'popularity.asc',
+    releaseDate: todayDate,
+  },
+];
+
+const selectItems: SelectOption[] = [
+  {
+    value: 'primary_release_date.desc',
+    text: 'Release date 🠗',
+  },
+  {
+    value: 'primary_release_date.asc',
+    text: 'Release date 🠕',
+  },
+  {
+    value: 'popularity.desc',
+    text: 'Popularity 🠗',
+  },
+  {
+    value: 'popularity.asc',
+    text: 'Popularity 🠕',
+  },
+  {
+    value: 'vote_count.desc',
+    text: 'User vote 🠗',
+  },
+  {
+    value: 'vote_count.asc',
+    text: 'User vote 🠕',
+  },
 ];
 
 export {
@@ -70,4 +109,5 @@ export {
   titles,
   endpoints,
   sorts,
+  selectItems,
 };

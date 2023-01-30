@@ -1,9 +1,11 @@
 import { Grid, Pagination } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { openSans } from 'utils/fonts';
 
 const StyledGridContainer = styled(Grid)({
   justifyContent: 'center',
   padding: '0 1rem',
+  gap: '2.5rem 9rem',
 });
 
 const StyledPagination = styled(Pagination)(({ theme }) => ({
@@ -17,11 +19,12 @@ const StyledPagination = styled(Pagination)(({ theme }) => ({
 
   '& Button': {
     border: '0.06rem solid rgba(255, 255, 255, 0.23)',
-    minWidth: '2rem',
-    height: '2rem',
+    minWidth: '2.5rem',
+    height: '2.5rem',
     borderRadius: '0.25rem',
     margin: '0 0.19rem',
     padding: '0 0.38rem',
+    ...openSans.style,
 
     '& .Mui-selected': {
       color: theme.palette.text.primary,
