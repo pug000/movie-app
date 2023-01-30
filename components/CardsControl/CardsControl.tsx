@@ -1,11 +1,13 @@
-import { ChangeEvent, memo } from 'react';
-import { SelectChangeEvent } from '@mui/material/Select/Select';
+import { memo } from 'react';
+import type { ChangeEvent } from 'react';
+import type { SelectChangeEvent } from '@mui/material/Select/Select';
 
 import { selectItems } from 'utils/constants';
 
 import Select from './Select/Select';
 
-import { StyledPagination, StyledGridContainer } from './CardsControl.style';
+import StyledGridContainer from './CardsControl.style';
+import Pagination from './Pagination/Pagination';
 
 interface CardsControlProps {
   currentPage: number;
@@ -24,13 +26,10 @@ function CardsControl({
 }: CardsControlProps) {
   return (
     <StyledGridContainer container>
-      <StyledPagination
-        page={currentPage}
-        count={totalPages}
-        shape="rounded"
-        variant="outlined"
-        color="primary"
-        onChange={changePage}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        changePage={changePage}
       />
       <Select
         options={selectItems}
