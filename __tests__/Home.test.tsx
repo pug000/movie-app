@@ -1,7 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
-import { Provider } from 'react-redux';
-import { NextRouter } from 'next/router';
+import type { NextRouter } from 'next/router';
 import fetchMock from 'jest-fetch-mock';
 
 import store from 'redux/store';
@@ -11,14 +10,14 @@ import Home from 'pages/index';
 
 import { mockedMovieResponse, mockedPosterPath } from './test-utils/constants';
 import mockNextRouter from './test-utils/createMockRouter';
+import renderWithProviders from './test-utils/renderWithProviders';
 
 const setUp = () =>
-  render(
-    <Provider store={store}>
-      <ThemeProvider theme={defaultTheme}>
-        <Home />
-      </ThemeProvider>
-    </Provider>
+  renderWithProviders(
+    <ThemeProvider theme={defaultTheme}>
+      <Home />
+    </ThemeProvider>,
+    { store }
   );
 
 describe('Home page', () => {

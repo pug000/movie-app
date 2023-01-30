@@ -30,12 +30,13 @@ const store = configureStore({
     getDefaultMiddleware().concat(apiSlice.middleware),
 });
 
+type AppStore = typeof store;
 type RootState = ReturnType<typeof store.getState>;
 type AppDispatch = typeof store.dispatch;
 
 const makeStore = () => store;
 const wrapper = createWrapper(makeStore, { debug: !isProduction });
 
-export type { RootState, AppDispatch };
-export { wrapper, makeStore };
+export type { AppStore, RootState, AppDispatch };
+export { wrapper, makeStore, reducer };
 export default store;
