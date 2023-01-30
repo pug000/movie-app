@@ -12,13 +12,11 @@ import Select from 'components/CardsControl/Select/Select';
 
 import type { SelectOption } from 'ts/interfaces';
 
-const changeSortType = jest.fn(({ target }: SelectChangeEvent<unknown>) =>
-  store.dispatch(
-    moviesActions.setMoviesSortType({ value: target.value as string, sorts })
-  )
-);
-
-const setUp = (options: SelectOption[], initialValue: string) => {
+const setUp = (
+  options: SelectOption[],
+  initialValue: string,
+  changeSortType: jest.Mock
+) => {
   const { rerender } = render(
     <Select
       options={options}
@@ -38,12 +36,22 @@ describe('Select component', () => {
   let user: UserEvent;
   const [initialMoviesSortType] = sorts;
 
+  const changeMoviesSortType = jest.fn(({ target }: SelectChangeEvent<unknown>) =>
+    store.dispatch(
+      moviesActions.setMoviesSortType({ value: target.value as string, sorts })
+    )
+  );
+
   beforeEach(() => {
     user = userEvent.setup();
   });
 
   test('should render Select component', async () => {
-    const { initialSelectedValue } = setUp(selectItems, initialMoviesSortType.type);
+    const { initialSelectedValue } = setUp(
+      selectItems,
+      initialMoviesSortType.type,
+      changeMoviesSortType
+    );
 
     expect(initialSelectedValue).toBeInTheDocument();
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
@@ -57,7 +65,8 @@ describe('Select component', () => {
   test('should change selected sort type when user change value', async () => {
     const { initialSelectedValue, rerender } = setUp(
       selectItems,
-      initialMoviesSortType.type
+      initialMoviesSortType.type,
+      changeMoviesSortType
     );
 
     await user.click(initialSelectedValue);
@@ -66,7 +75,7 @@ describe('Select component', () => {
       <Select
         options={selectItems}
         selectedValue="popularity.desc"
-        changeSortType={changeSortType}
+        changeSortType={changeMoviesSortType}
       />
     );
     expect(screen.getByRole('button', { name: /popularity 🠗/i })).toBeInTheDocument();
@@ -76,12 +85,16 @@ describe('Select component', () => {
     );
   });
 
-  test('should change store when user change value', async () => {
-    const { initialSelectedValue } = setUp(selectItems, initialMoviesSortType.type);
+  test('should change movies state when user change value', async () => {
+    const { initialSelectedValue } = setUp(
+      selectItems,
+      initialMoviesSortType.type,
+      changeMoviesSortType
+    );
 
     await user.click(initialSelectedValue);
     await user.click(screen.getByRole('option', { name: /user vote 🠕/i }));
-    expect(changeSortType).toHaveBeenCalled();
+    expect(changeMoviesSortType).toHaveBeenCalled();
     expect(store.getState().movies.moviesSortType).toEqual({
       type: 'vote_count.asc',
       releaseDate: todayDate,
