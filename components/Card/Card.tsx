@@ -24,12 +24,18 @@ import {
   StyledImageWrapper,
 } from './Card.style';
 
+import CardSkeleton from './CardSkeleton';
+
 interface CardProps {
   card: Movie;
   routerPathById: string;
 }
 
 function Card({ card, routerPathById }: CardProps) {
+  if (true) {
+    return <CardSkeleton routerPathById={routerPathById} />;
+  }
+
   return (
     <StyledItem>
       <StyledImageWrapper>

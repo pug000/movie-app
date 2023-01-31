@@ -1,4 +1,4 @@
-import { Button, IconButton, styled } from '@mui/material';
+import { Button, IconButton, Skeleton, styled } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -61,12 +61,18 @@ const StyledRatingWrapper = styled('div')({
 const StyledRating = styled('span')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'center',
+  justifyContent: 'space-around',
   gap: '0.3rem',
   color: theme.palette.text.white,
+  maxWidth: '3.3rem',
+  width: '100%',
 }));
 
-const StyledLink = styled(Link)(({ theme }) => ({
+interface WidthProps {
+  width?: string;
+}
+
+const StyledLink = styled(Link)<WidthProps>(({ theme, width }) => ({
   color: theme.palette.text.white,
   textDecoration: 'none',
   transition: theme.transitions.create(['opacity', 'color']),
@@ -76,6 +82,7 @@ const StyledLink = styled(Link)(({ theme }) => ({
   WebkitBoxOrient: 'vertical',
   WebkitLineClamp: 2,
   overflow: 'hidden',
+  width: width ?? 'initial',
 
   '&:hover': {
     opacity: 0.6,
@@ -102,6 +109,11 @@ const StyledButton = styled(Button)(({ theme }) => ({
   '&:hover': {
     backgroundColor: 'hsla(0,0%,100%,.15)',
   },
+
+  '& .MuiButton-startIcon': {
+    marginRight: '0.5rem',
+    marginLeft: '-0.25rem',
+  },
 }));
 
 const NavigationButton = styled(IconButton)(({ theme }) => ({
@@ -118,6 +130,12 @@ const NavigationButton = styled(IconButton)(({ theme }) => ({
   },
 }));
 
+const StyledSkeleton = styled(Skeleton)(({ theme, width, height }) => ({
+  backgroundColor: theme.palette.grey[800],
+  width: width ?? '1.3rem',
+  height: height ?? '1.3rem',
+}));
+
 export {
   StyledItem,
   StyledImageWrapper,
@@ -128,5 +146,6 @@ export {
   StyledRating,
   StyledLink,
   StyledButton,
+  StyledSkeleton,
   NavigationButton,
 };
