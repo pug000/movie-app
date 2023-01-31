@@ -7,12 +7,18 @@ import Pagination from 'components/CardsControl/Pagination/Pagination';
 import store from 'redux/store';
 import { moviesActions } from 'redux/slices/moviesSlice';
 
-const setUp = (currentPage: number, totalPages: number, changePage: jest.Mock) => {
+const setUp = (
+  currentPage: number,
+  totalPages: number,
+  changePage: jest.Mock,
+  isLoading = false
+) => {
   const { rerender } = render(
     <Pagination
       currentPage={currentPage}
       totalPages={totalPages}
       changePage={changePage}
+      isLoading={isLoading}
     />
   );
   const prevPaginationButton = screen.getByRole('button', {
@@ -60,7 +66,12 @@ describe('Pagination component', () => {
       setUp(1, 50, changeMoviesPage);
     await user.click(maxPaginationPage);
     rerender(
-      <Pagination currentPage={50} totalPages={50} changePage={changeMoviesPage} />
+      <Pagination
+        currentPage={50}
+        totalPages={50}
+        changePage={changeMoviesPage}
+        isLoading={false}
+      />
     );
     expect(screen.getByRole('button', { name: /page 50/i })).toHaveClass('Mui-selected');
     expect(nextPaginationButton).toBeDisabled();
@@ -75,5 +86,19 @@ describe('Pagination component', () => {
     await user.click(maxPaginationPage);
     expect(store.getState().movies.currentMoviesPage).toBe(50);
     expect(changeMoviesPage).toHaveBeenCalled();
+  });
+
+  test('should disabled', () => {
+    const { prevPaginationButton, nextPaginationButton, maxPaginationPage } = setUp(
+      1,
+      50,
+      changeMoviesPage,
+      true
+    );
+
+    expect(screen.getByRole('button', { name: /page 1/i })).toBeDisabled();
+    expect(prevPaginationButton).toBeDisabled();
+    expect(maxPaginationPage).toBeDisabled();
+    expect(nextPaginationButton).toBeDisabled();
   });
 });

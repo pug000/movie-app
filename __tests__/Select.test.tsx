@@ -15,13 +15,15 @@ import type { SelectOption } from 'ts/interfaces';
 const setUp = (
   options: SelectOption[],
   initialValue: string,
-  changeSortType: jest.Mock
+  changeSortType: jest.Mock,
+  isLoading = false
 ) => {
   const { rerender } = render(
     <Select
       options={options}
       selectedValue={initialValue}
       changeSortType={changeSortType}
+      isLoading={isLoading}
     />
   );
   const initialSelectedValue = screen.getByRole('button', { name: /release date 🠗/i });
@@ -76,6 +78,7 @@ describe('Select component', () => {
         options={selectItems}
         selectedValue="popularity.desc"
         changeSortType={changeMoviesSortType}
+        isLoading={false}
       />
     );
     expect(screen.getByRole('button', { name: /popularity 🠗/i })).toBeInTheDocument();
@@ -99,5 +102,16 @@ describe('Select component', () => {
       type: 'vote_count.asc',
       releaseDate: todayDate,
     });
+  });
+
+  test('should disabled', () => {
+    const { initialSelectedValue } = setUp(
+      selectItems,
+      initialMoviesSortType.type,
+      changeMoviesSortType,
+      true
+    );
+
+    expect(initialSelectedValue).toHaveClass('Mui-disabled');
   });
 });
