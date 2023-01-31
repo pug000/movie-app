@@ -21,7 +21,14 @@ const StyledPagination = styled(Pagination)(({ theme }) => ({
     ...openSans.style,
 
     '& .Mui-selected': {
-      color: theme.palette.text.primary,
+      color: theme.palette.primary.main,
+    },
+
+    '&.Mui-disabled.Mui-selected': {
+      backgroundColor: 'rgba(25, 118, 210, 0.12)',
+      border: '0.06rem solid rgba(25, 118, 210, 0.5)',
+      color: theme.palette.primary.main,
+      opacity: 0.7,
     },
 
     '&:hover': {
