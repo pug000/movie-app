@@ -22,7 +22,17 @@ const StyledSelect = styled(Select)(({ theme }) => ({
     paddingRight: '2rem !important',
   },
 
+  '&.Mui-disabled .MuiSelect-select': {
+    WebkitTextFillColor: theme.palette.text.white,
+    opacity: 0.34,
+    borderRadius: '0.25rem',
+  },
+
   '.MuiOutlinedInput-notchedOutline': {
+    borderColor: 'rgba(255, 255, 255, 0.23)',
+  },
+
+  '&.Mui-disabled .MuiOutlinedInput-notchedOutline': {
     borderColor: 'rgba(255, 255, 255, 0.23)',
   },
 
