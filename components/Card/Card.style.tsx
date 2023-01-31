@@ -12,6 +12,10 @@ const StyledItem = styled('div')(({ theme }) => ({
   borderRadius: '0 0 0.25rem 0.25rem',
 }));
 
+const StyledImageWrapper = styled('div')({
+  height: '18.75rem',
+});
+
 const StyledImage = styled(Image)(({ theme }) => ({
   width: '12.5rem',
   height: '18.75rem',
@@ -116,6 +120,7 @@ const NavigationButton = styled(IconButton)(({ theme }) => ({
 
 export {
   StyledItem,
+  StyledImageWrapper,
   StyledImage,
   StyledItemInfo,
   StyledIconButton,

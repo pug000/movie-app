@@ -21,6 +21,7 @@ import {
   StyledIconButton,
   StyledLink,
   StyledButton,
+  StyledImageWrapper,
 } from './Card.style';
 
 interface CardProps {
@@ -31,16 +32,17 @@ interface CardProps {
 function Card({ card, routerPathById }: CardProps) {
   return (
     <StyledItem>
-      <Link href={routerPathById}>
-        <StyledImage
-          loader={loadImage}
-          src={getImage(card.poster_path, 'w200')}
-          width={0}
-          height={0}
-          priority
-          alt={`${card.title ?? card.original_title} poster`}
-        />
-      </Link>
+      <StyledImageWrapper>
+        <Link href={routerPathById}>
+          <StyledImage
+            loader={loadImage}
+            src={getImage(card.poster_path, 'w200')}
+            width={0}
+            height={0}
+            alt={`${card.title ?? card.original_title} poster`}
+          />
+        </Link>
+      </StyledImageWrapper>
       <StyledItemInfo>
         <StyledRatingWrapper>
           <StyledRating sx={openSans.style}>
