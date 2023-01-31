@@ -32,7 +32,7 @@ function Movies() {
   const currentMoviesPage = useAppSelector(moviesSelectors.getCurrentMoviesPages);
   const totalMoviesPages = useAppSelector(moviesSelectors.getTotalMoviesPages);
   const moviesSortType = useAppSelector(moviesSelectors.getMoviesSortType);
-  const { data: movies } = useGetDiscoverMoviesQuery({
+  const { data: movies, isLoading: isLoadingMovies } = useGetDiscoverMoviesQuery({
     page: currentMoviesPage,
     ...moviesSortType,
   });
@@ -68,11 +68,16 @@ function Movies() {
           currentPage={currentMoviesPage}
           totalPages={totalMoviesPages}
           selectedValue={moviesSortType.type}
+          isLoading={isLoadingMovies}
           changePage={changePage}
           changeSortType={changeSortType}
         />
         {movies && (
-          <CardsList itemList={movies?.results} routerPath={RouterPaths.movies} />
+          <CardsList
+            itemList={movies?.results}
+            routerPath={RouterPaths.movies}
+            isLoading={isLoadingMovies}
+          />
         )}
       </StyledSection>
     </Layout>

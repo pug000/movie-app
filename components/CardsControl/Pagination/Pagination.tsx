@@ -6,10 +6,11 @@ import StyledPagination from './Pagination.style';
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
+  isLoading: boolean;
   changePage: (_event: ChangeEvent<unknown>, page: number) => void;
 }
 
-function Pagination({ currentPage, totalPages, changePage }: PaginationProps) {
+function Pagination({ currentPage, totalPages, isLoading, changePage }: PaginationProps) {
   return (
     <StyledPagination
       page={currentPage}
@@ -17,6 +18,7 @@ function Pagination({ currentPage, totalPages, changePage }: PaginationProps) {
       shape="rounded"
       variant="outlined"
       color="primary"
+      disabled={isLoading}
       onChange={changePage}
     />
   );

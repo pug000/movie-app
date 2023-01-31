@@ -13,6 +13,7 @@ interface CardsControlProps {
   currentPage: number;
   totalPages: number;
   selectedValue: string;
+  isLoading: boolean;
   changePage: (_event: ChangeEvent<unknown>, page: number) => void;
   changeSortType: (event: SelectChangeEvent<unknown>) => void;
 }
@@ -21,6 +22,7 @@ function CardsControl({
   currentPage,
   totalPages,
   selectedValue,
+  isLoading,
   changePage,
   changeSortType,
 }: CardsControlProps) {
@@ -30,10 +32,12 @@ function CardsControl({
         currentPage={currentPage}
         totalPages={totalPages}
         changePage={changePage}
+        isLoading={isLoading}
       />
       <Select
         options={selectItems}
         selectedValue={selectedValue}
+        isLoading={isLoading}
         changeSortType={changeSortType}
       />
     </StyledGridContainer>

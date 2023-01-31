@@ -29,10 +29,11 @@ import CardSkeleton from './CardSkeleton';
 interface CardProps {
   card: Movie;
   routerPathById: string;
+  isLoading: boolean;
 }
 
-function Card({ card, routerPathById }: CardProps) {
-  if (true) {
+function Card({ card, routerPathById, isLoading }: CardProps) {
+  if (isLoading) {
     return <CardSkeleton routerPathById={routerPathById} />;
   }
 

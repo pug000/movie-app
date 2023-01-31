@@ -9,10 +9,11 @@ import { StyledFormControl, StyledSelect, SelectItem, menuProps } from './Select
 interface SelectProps {
   options: SelectOption[];
   selectedValue: string;
+  isLoading: boolean;
   changeSortType: (event: SelectChangeEvent<unknown>) => void;
 }
 
-function Select({ options, selectedValue, changeSortType }: SelectProps) {
+function Select({ options, selectedValue, isLoading, changeSortType }: SelectProps) {
   return (
     <StyledFormControl size="small">
       <StyledSelect
@@ -20,6 +21,7 @@ function Select({ options, selectedValue, changeSortType }: SelectProps) {
         variant="outlined"
         MenuProps={menuProps}
         sx={openSans.style}
+        disabled={isLoading}
         onChange={changeSortType}
       >
         {options.map(({ text, value }) => (
